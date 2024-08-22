@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .home-header {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .home-content {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  header, footer {
+    width: 100%;
+    text-align: center;
+  }

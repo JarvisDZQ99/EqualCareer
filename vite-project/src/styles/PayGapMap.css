@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .map-title {
+    font-size: 2rem;
+    color: #444;
+    margin-bottom: 20px;
+  }
+  
+  .map-container {
+    width: 80%;
+    max-width: 800px;
+    height: 600px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  header, footer {
+    width: 100%;
+    text-align: center;
+  }
