@@ -1,25 +1,72 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 100vh;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .home-header {
-    font-size: 2.5rem;
-    color: #333;
-  }
-  
-  .home-content {
-    margin-top: 20px;
-    font-size: 1.2rem;
-    color: #666;
-  }
-  
-  header, footer {
-    width: 100%;
-    text-align: center;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+header, footer {
+  width: 100%;
+  text-align: center;
+}
+
+.home-content {
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: left;
+  color: #333;
+}
+
+.home-section {
+  margin-bottom: 30px;
+}
+
+.home-section-title {
+  font-size: 2rem;
+  color: #2980b9;
+  margin-bottom: 15px;
+}
+
+.home-paragraph {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.home-list {
+  padding-left: 20px;
+}
+
+.home-list-item {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.home-link {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+
+.home-quote {
+  font-style: italic;
+  border-left: 4px solid #3498db;
+  padding-left: 20px;
+  margin: 20px 0;
+  color: #34495e;
+  font-size: 1.2rem;
+}
+
+.home-call-to-action {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 30px;
+  color: #2c3e50;
+}

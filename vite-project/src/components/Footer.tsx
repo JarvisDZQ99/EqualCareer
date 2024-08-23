@@ -2,8 +2,17 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer>
-      <p>&copy; 2024 Gender Equality Dashboard</p>
+    <footer style={{
+      backgroundColor: '#f8f9fa',
+      color: '#333',
+      padding: '1rem',
+      textAlign: 'center',
+      borderTop: '1px solid #e7e7e7',
+      marginTop: 'auto'
+    }}>
+      <p style={{ margin: 0, fontSize: '0.9rem' }}>
+        &copy; {new Date().getFullYear()} Gender Equality Dashboard. All rights reserved.
+      </p>
     </footer>
   );
 };
