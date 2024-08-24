@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
       marginTop: 'auto'
     }}>
       <p style={{ margin: 0, fontSize: '0.9rem' }}>
-        &copy; {new Date().getFullYear()} Gender Equality Dashboard. All rights reserved.
+        &copy; {new Date().getFullYear()} Equal Career. All rights reserved.
       </p>
     </footer>
   );
