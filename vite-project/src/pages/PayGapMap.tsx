@@ -8,7 +8,6 @@ const PayGapMap: React.FC = () => {
     return (
       <div className="container">
         <Header />
-        <h2 className="map-title">Gender Pay Gap Across Australian States</h2>
         <div className="map-container">
           <Map />
         </div>

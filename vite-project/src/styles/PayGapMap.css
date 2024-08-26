@@ -20,9 +20,25 @@
     height: 600px;
     border: 2px solid #ccc;
     border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .map-container > div {
+    height: 100%;
   }
   
   header, footer {
     width: 100%;
     text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .map-container {
+      width: 95%;
+      height: 400px;
+    }
+  
+    .map-title {
+      font-size: 1.5rem;
+    }
   }
