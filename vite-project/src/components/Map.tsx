@@ -8,7 +8,7 @@ interface PayGapData {
   y_m: string;
   males: number;
   females: number;
-  difference: number;  // Add this line to include the difference field
+  difference: number; 
 }
 
 const stateNameMapping: { [key: string]: string } = {
@@ -162,7 +162,7 @@ const MapComponent: React.FC = () => {
                       <>
                         <div>Time: {stateData.y_m}</div>
                         <div>Pay Gap: {payGap}%</div>
-                        <div>Difference: ${stateData.difference}</div>
+                        <div>Difference: ${stateData.difference}/week</div>
                       </>
                     );
                   }
