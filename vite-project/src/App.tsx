@@ -7,7 +7,7 @@ import PasswordProtection from './PasswordProtectedWebsite';
 
 const App: React.FC = () => {
   return (
-    <PasswordProtection password="2024tp18">
+    <PasswordProtection password={import.meta.env.VITE_WEBSITE_PASSWORD}>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
