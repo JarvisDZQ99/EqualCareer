@@ -1,4 +1,4 @@
-.container {
+   .container {
     display: flex;
     flex-direction: column;
     justify-content: space-between; 
@@ -28,3 +28,19 @@
     text-align: center;
   }
   
+  .average-difference {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    width: 80%;
+    max-width: 750px;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .average-difference h3 {
+    margin: 0;
+  }
