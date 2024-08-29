@@ -1,61 +1,71 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/Home.css';
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = document.querySelector('.homecontainer');
+      if (container) {
+        if (window.scrollY > 5) {
+          container.classList.add('scrolled');
+          console.log('Scrolled: Adding scrolled class');
+        } else {
+          container.classList.remove('scrolled');
+          console.log('Scrolled: Removing scrolled class');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="container">
+    <div className="homecontainer">
       <Header />
       <div className="home-content">
-        <section className="home-section">
-          <h2 className="home-section-title">Addressing Workplace Inequality in Australia</h2>
-          <p className="home-paragraph">
-            Despite recent progress, gender inequality remains a significant challenge in Australian workplaces. 
-            Our dashboard visualizes key data to drive awareness and inform policy decisions.
+        <h1 className="home-title">Equal Career</h1>
+        <p className="home-subtitle">Empowering gender equality in the workplace</p>
+        <div className="home-buttons">
+          <Link to="/paygap-map">
+            <button className="home-button">Pay Gap Map</button>
+          </Link>
+          <Link to="/labourforce-chart">
+            <button className="home-button">Labour Force Chart</button>
+          </Link>
+        </div>
+      </div>
+      <div className="scroll-background">
+        <div className="scroll-content">
+          <h2>About Equal Career</h2>
+          <p>
+            Equal Career is dedicated to promoting gender equality in the workplace. 
+            Our platform provides tools and resources to help organizations close the gender pay gap 
+            and create more inclusive work environments.
           </p>
+          <section className="mission">
+          <h2>Our Mission</h2>
+          <div className="mission-items">
+            <div className="mission-item">
+              <img src="/icon1.png" alt="Policy making" />
+              <p>Support evidence-based<br />policy making</p>
+            </div>
+            <div className="mission-item">
+              <img src="/icon2.png" alt="Gender challenges" />
+              <p>Raise awareness of workplace<br />gender challenges</p>
+            </div>
+            <div className="mission-item">
+              <img src="/icon3.png" alt="Progress tracking" />
+              <p>Track progress over time</p>
+            </div>
+          </div>
         </section>
-
-        <section className="home-section">
-          <h2 className="home-section-title">Key Issues We're Tracking:</h2>
-          <ul className="home-list">
-            <li className="home-list-item">
-              <strong>Gender Pay Gap:</strong> Currently at 11.5% (a record low)
-              <br />
-              <Link to="/paygapmap" className="home-link">Explore our Pay Gap Map</Link>
-            </li>
-            <li className="home-list-item">
-              <strong>Labour Force Participation:</strong> Examining gender differences
-              <br />
-              <Link to="/labourforcechart" className="home-link">View our Labour Force Chart</Link>
-            </li>
-          </ul>
-        </section>
-
-        <section className="home-section">
-          <h2 className="home-section-title">Our Mission</h2>
-          <p className="home-paragraph">
-            We provide data-driven insights into gender equality issues in Australian workplaces, aiming to:
-          </p>
-          <ul className="home-list">
-            <li>Raise awareness of ongoing challenges</li>
-            <li>Support evidence-based policy making</li>
-            <li>Track progress over time</li>
-            <li>Identify areas needing urgent attention</li>
-          </ul>
-        </section>
-
-        <blockquote className="home-quote">
-          "How might we address these systemic inequalities to ensure that women, whether as employers or employees, 
-          can fully realize their potential in a fair and inclusive workplace environment?"
-        </blockquote>
-
-        <p className="home-call-to-action">
-          Help us answer this crucial question. Explore our{' '}
-          <Link to="/paygapmap" className="home-link">Pay Gap Map</Link> and{' '}
-          <Link to="/labourforcechart" className="home-link">Labour Force Chart</Link>.
-        </p>
+        </div>
       </div>
       <Footer />
     </div>
@@ -63,3 +73,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+

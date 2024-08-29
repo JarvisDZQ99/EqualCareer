@@ -185,6 +185,10 @@ const LabourForceChart: React.FC = () => {
   return (
     <div className="container">
       <Header />
+      <div className="intro">
+        <h1 className="intro-title">Gender Employment Ratios Across Industries</h1>
+        <p className="intro-text">This chart visualizes the gender employment ratios across various industries, highlighting the percentage of men and women in each sector. It also provides insights into the average gender difference and identifies the top three industries with the highest gender gap.</p>
+      </div>
       {isLoading ? (
         <p>Loading data...</p>
       ) : error ? (
@@ -208,4 +212,5 @@ const LabourForceChart: React.FC = () => {
 };
 
 export default LabourForceChart;
+
 
