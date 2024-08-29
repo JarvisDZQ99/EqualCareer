@@ -32,10 +32,10 @@ const Home: React.FC = () => {
         <h1 className="home-title">Equal Career</h1>
         <p className="home-subtitle">Empowering gender equality in the workplace</p>
         <div className="home-buttons">
-          <Link to="/paygap-map">
+          <Link to="/PayGapMap">
             <button className="home-button">Pay Gap Map</button>
           </Link>
-          <Link to="/labourforce-chart">
+          <Link to="/LabourForceChart">
             <button className="home-button">Labour Force Chart</button>
           </Link>
         </div>
