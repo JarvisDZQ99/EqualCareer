@@ -108,6 +108,35 @@ const MapComponent: React.FC = () => {
             ref={mapRef}
             style={{ width: "100%", height: "100%" }}
             mapStyle="mapbox://styles/mapbox/light-v10"
+            // mapStyle={{
+            //   version: 8,
+            //   sources: {
+            //     "raster-tiles": {
+            //       type: "raster",
+            //       tiles: [
+            //         "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            //       ],
+            //       tileSize: 256,
+            //       attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
+            //     }
+            //   },
+            //   layers: [
+            //     {
+            //       id: "background",
+            //       type: "background",
+            //       paint: {
+            //         "background-color": "#f0f0f0" // 这里设置背景颜色
+            //       }
+            //     },
+            //     {
+            //       id: "raster-tiles",
+            //       type: "raster",
+            //       source: "raster-tiles",
+            //       minzoom: 0,
+            //       maxzoom: 22
+            //     }
+            //   ]
+            // }}
             onMove={(evt) => setViewport(evt.viewState)}
             mapboxAccessToken={mapboxToken}
             onMouseMove={(evt) => {

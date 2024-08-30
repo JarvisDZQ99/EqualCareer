@@ -49,79 +49,27 @@
 
 .home-title {
   font-size: 4rem;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+  letter-spacing: 2px;
 }
 
 .home-subtitle {
   font-size: 1.5rem;
-  margin-bottom: 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+  letter-spacing: 1px;
 }
 
-.home-buttons {
-  display: flex;
-  gap: 20px;
-}
-
-.home-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #3367d6;
-  color: white;
-  border: none;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-}
-
-.home-button:hover {
-  background-color: #6d8dd3;
-}
-
-.about-section {
-  background-color: white;
-  padding: 40px 0;
-}
-
-.about-content {
+.home-description {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 10px auto;
+  padding: 15px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #ffffff;
   text-align: center;
-  color: #333;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
 }
 
-.about-content h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
 
-.mission {
-  margin-top: 40px;
-}
-
-.mission-items {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.mission-item {
-  flex: 1;
-  min-width: 200px;
-  max-width: 250px;
-  margin: 20px;
-  text-align: center;
-}
-
-.mission-item img {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 10px;
-}
-
-.mission-item p {
-  font-size: 1rem;
-}
