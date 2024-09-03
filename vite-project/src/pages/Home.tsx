@@ -10,7 +10,7 @@ const Home: React.FC = () => {
         <Header />
         <div className="home-content">
           <h1 className="home-title">Equal Career</h1>
-          <p className="home-subtitle">Empowering gender equality in the workplace</p>
+          <p className="home-subtitle">Welcome to Equal Career</p>
           <p className="home-description">
             Equal Career is dedicated to promoting gender equality in the workplace. 
             Our platform provides tools and resources to help organizations close the gender pay gap 
