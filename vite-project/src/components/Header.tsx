@@ -12,8 +12,9 @@ const Header: React.FC = () => {
       </div>
       <nav>
         <Link to="/" className="nav-link">Home</Link>
-        <Link to="/paygapmap" className="nav-link">Pay Gap Map</Link>
-        <Link to="/labourforcechart" className="nav-link">Labour Force Chart</Link>
+        <Link to="/journey" className="nav-link">Career Journey</Link>
+        {/* <Link to="/paygapmap" className="nav-link">Pay Gap Map</Link> */}
+        {/* <Link to="/labourforcechart" className="nav-link">Labour Force Chart</Link> */}
       </nav>
     </header>
   );
