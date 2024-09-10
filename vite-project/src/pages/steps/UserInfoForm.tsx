@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Select, { SingleValue } from 'react-select';
 
 interface UserInfoFormProps {
-  onNext: () => void;
+  onNext: (userInfo: { gender: string; industry: string; level: string; region: string }) => void;
 }
 
 interface Option {
@@ -29,14 +29,14 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   ];
 
   const australianStates: Option[] = [
-    { value: 'New South Wales', label: 'New South Wales' },
-    { value: 'Victoria', label: 'Victoria' },
-    { value: 'Queensland', label: 'Queensland' },
-    { value: 'South Australia', label: 'South Australia' },
-    { value: 'Western Australia', label: 'Western Australia' },
-    { value: 'Tasmania', label: 'Tasmania' },
-    { value: 'Northern Territory', label: 'Northern Territory' },
-    { value: 'Australian Capital Territory', label: 'Australian Capital Territory' }
+    { value: 'NSW', label: 'NSW' },
+    { value: 'VIC', label: 'VIC' },
+    { value: 'QLD', label: 'QLD' },
+    { value: 'SA', label: 'SA' },
+    { value: 'WA', label: 'WA' },
+    { value: 'TAS', label: 'TAS' },
+    { value: 'NT', label: 'NT' },
+    { value: 'ACT', label: 'ACT' }
   ];
 
   const industryOptions: Option[] = [
@@ -63,7 +63,12 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
 
   const handleNext = () => {
     if (gender && industry && level && region) {
-      onNext();
+      onNext({
+        gender: gender.value,
+        industry: industry.value,
+        level: level.value,
+        region: region.value
+      });
     } else {
       alert('Please fill out all fields');
     }
