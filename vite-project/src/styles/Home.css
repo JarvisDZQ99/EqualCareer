@@ -1,19 +1,19 @@
 @keyframes backgroundScroll {
-  0% {
+  0%, 100% {
     background-image: url('/home3.jpg');
   }
   50% {
     background-image: url('/home2.jpg');
   }
-  100% {
-    background-image: url('/home3.jpg');
-  }
 }
 
 .homecontainer {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
   font-family: 'Playfair Display', serif;
 }
 
@@ -34,6 +34,8 @@
   padding: 20px 0;
   color: #333;
   box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
 
 .home-content {
@@ -45,37 +47,62 @@
   text-align: center;
   color: white;
   padding: 20px;
+  position: relative;
+  z-index: 2;
 }
 
 .home-title {
-  font-size: 4rem;
-  margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   letter-spacing: 2px;
 }
 
 .home-subtitle {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   letter-spacing: 1px;
+  max-width: 800px;
 }
 
 .start-button {
-  padding: 10px 20px;
-  font-size: 25px;
+  padding: 12px 30px;
+  font-size: 1.2rem;
   background-color: #368cba;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: serif;
+  transition: all 0.3s ease;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .start-button:hover {
   background-color: #1962b5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
+@media (max-width: 768px) {
+  .home-title {
+    font-size: 3.5rem;
+  }
 
+  .home-subtitle {
+    font-size: 1.4rem;
+  }
+
+  .start-button {
+    font-size: 1rem;
+    padding: 10px 25px;
+  }
+}
 

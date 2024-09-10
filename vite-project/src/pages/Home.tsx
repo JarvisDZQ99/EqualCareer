@@ -19,7 +19,7 @@ const Home: React.FC = () => {
           <h1 className="home-title">Equal Career</h1>
           <p className="home-subtitle">Empowering Your Career Path with Data-Driven Insights</p>
           <button className="start-button" onClick={handleStartClick}>
-            Let's Start
+            Let's Start Your Journey
           </button>
         </div>
         <Footer />
@@ -29,3 +29,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+

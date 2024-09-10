@@ -33,6 +33,10 @@
   transition: all 0.3s ease; 
 }
 
+.nav-link:last-child {
+  margin-right: 1.5rem; /* 为最后一个链接添加右边距 */
+}
+
 .nav-link:hover {
   color: #02426c; 
   transform: scale(1.1); 
