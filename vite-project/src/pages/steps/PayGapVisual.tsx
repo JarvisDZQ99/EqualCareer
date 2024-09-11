@@ -22,6 +22,7 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ payGapData, industry }) => 
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         fill: false,
         borderWidth: 2,
+        tension: 0.4,  
       },
       {
         label: 'Female Salary',
@@ -30,6 +31,7 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ payGapData, industry }) => 
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         fill: false,
         borderWidth: 2,
+        tension: 0.4,
       },
     ],
   };
@@ -39,6 +41,9 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ payGapData, industry }) => 
 
   const chartOptions = {
     responsive: true,
+    animation: {
+      duration: 2000,  
+    },
     scales: {
       x: {
         title: {
@@ -68,7 +73,7 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ payGapData, industry }) => 
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ width: '700px', height: '400px', margin: '20px auto' }}>
+      <div style={{ width: '900px', height: '350px', margin: '20px auto' }}>
         <h3 style={{ textAlign: 'center' }}>Gender Pay Gap Over Time in {industry}</h3>
         <Line data={chartData} options={chartOptions} />
       </div>

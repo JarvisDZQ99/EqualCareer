@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { motion } from 'framer-motion';  
 
 interface LabourForceData {
   industry: string;
@@ -60,6 +61,11 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({ selectedIndustry }) =
     return <p>No labour force data available for the selected industry.</p>;
   }
 
+  const fadeInVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 1 } },
+  };
+
   const containerStyle: React.CSSProperties = {
     marginTop: '20px',
     padding: '20px',
@@ -92,9 +98,16 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({ selectedIndustry }) =
   };
 
   return (
-    <div style={containerStyle}>
-      <h2 style={titleStyle}>Labour Force Information for {labourForceData.industry}</h2>
-      <table style={tableStyle}>
+    <motion.div
+      style={containerStyle}
+      initial="hidden"
+      animate="visible"
+      variants={fadeInVariants} 
+    >
+      <motion.h2 style={titleStyle} variants={fadeInVariants}>
+        Labour Force Information for {labourForceData.industry}
+      </motion.h2>
+      <motion.table style={tableStyle} variants={fadeInVariants}>
         <thead>
           <tr>
             <th style={{ ...thTdStyle, ...thStyle }}>Men</th>
@@ -113,8 +126,8 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({ selectedIndustry }) =
             <td style={thTdStyle}>{labourForceData.gap_ratio.toFixed(2)}%</td>
           </tr>
         </tbody>
-      </table>
-    </div>
+      </motion.table>
+    </motion.div>
   );
 };
 
