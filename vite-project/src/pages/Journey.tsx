@@ -2,13 +2,14 @@ import React, { useState, useRef } from 'react';
 import Welcome from '../pages/steps/Welcome';
 import UserInfoForm from '../pages/steps/UserInfoForm';
 import EmploymentChoice from '../pages/steps/EmploymentChoice';
+import LabourForceInfo from '../pages/steps/LabourForceInfo'; 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/Journey.css';
 
 const Journey: React.FC = () => {
   const [showEmploymentChoice, setShowEmploymentChoice] = useState(false);
-  const [selectedChoice, setSelectedChoice] = useState<string | null>(null); 
+  const [showLabourForceInfo, setShowLabourForceInfo] = useState(false); 
   const employmentChoiceRef = useRef<HTMLDivElement>(null);
 
   const [userData, setUserData] = useState({
@@ -30,10 +31,9 @@ const Journey: React.FC = () => {
   };
 
   const handleEmploymentChoice = (choice: string) => {
-    setSelectedChoice(choice); 
-    if (selectedChoice) {
-        console.log(`User selected: ${selectedChoice}`);
-      }
+    if (choice === 'labour-force-info') {
+      setShowLabourForceInfo(true);
+    }
   };
 
   return (
@@ -50,6 +50,10 @@ const Journey: React.FC = () => {
             <EmploymentChoice onNext={handleEmploymentChoice} userData={userData} />
           </div>
         )}
+
+        {showLabourForceInfo && (
+          <LabourForceInfo selectedIndustry={userData.industry} />
+        )}
       </div>
       
       <Footer />
@@ -58,4 +62,6 @@ const Journey: React.FC = () => {
 };
 
 export default Journey;
+
+
 
