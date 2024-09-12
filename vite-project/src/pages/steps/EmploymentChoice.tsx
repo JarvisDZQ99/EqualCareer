@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PayGapVisual from './PayGapVisual';  
+import PayGapVisual from './PayGapVisual';
+import JobSeekingResults from './CompanySuggest';
 
 interface EmploymentChoiceProps {
   onNext: (choice: string) => void;
   userData: {
     industry: string;
+    region: string;
   };
 }
 
 const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, userData }) => {
-  const [payGapData, setPayGapData] = useState<any>(null);  
-  const [loading, setLoading] = useState(false);  
-  const [choice, setChoice] = useState(''); 
+  const [payGapData, setPayGapData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [choice, setChoice] = useState('');
   const [showLabourForceQuestion, setShowLabourForceQuestion] = useState(false);
 
   useEffect(() => {
@@ -29,19 +31,19 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, userData })
           industry: userData.industry,
         }
       });
-      const responseData = JSON.parse(response.data.body); 
+      const responseData = JSON.parse(response.data.body);
       
       processPayGapData(responseData);
     } catch (error) {
       console.error('Error fetching gender pay data:', error);
     } finally {
       setLoading(false);
-      setShowLabourForceQuestion(true);  
+      setShowLabourForceQuestion(true);
     }
   };
 
   const normalizeString = (str: string) => {
-    return str.replace(/&/g, 'and').trim().toLowerCase(); 
+    return str.replace(/&/g, 'and').trim().toLowerCase();
   };
 
   const processPayGapData = (data: any) => {
@@ -59,7 +61,7 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, userData })
 
     filteredData.forEach((item: any) => {
       const [year, month] = item.time_period.split('-');
-      const formattedDate = `${month}-${year}`; 
+      const formattedDate = `${month}-${year}`;
       dates.push(formattedDate);
       maleSalaries.push(item.males_earnings);
       femaleSalaries.push(item.females_earnings);
@@ -73,13 +75,15 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, userData })
   };
 
   const handleChoice = (selectedChoice: string) => {
-    setChoice(selectedChoice); 
-    onNext(selectedChoice);  
+    setChoice(selectedChoice);
+    if (selectedChoice === 'Job-Seeking') {
+      onNext(selectedChoice);
+    }
   };
 
   const handleLabourForceChoice = (answer: string) => {
     if (answer === 'next') {
-      onNext('labour-force-info'); 
+      onNext('labour-force-info');
     } else {
       onNext('home');
     }
@@ -87,29 +91,53 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, userData })
 
   return (
     <div className="step-container">
-      <h2>Choose Your Current Status</h2>
+      <h2 className="text-2xl font-bold mb-4">Choose Your Current Status</h2>
 
-      <div className="button-group">
-        <button onClick={() => handleChoice('Job-Seeking')}>Job-Seeking</button>
-        <button onClick={() => handleChoice('Already Employed')}>Already Employed</button>
+      <div className="button-group mb-4">
+        <button 
+          className="px-4 py-2 bg-blue-500 text-white rounded mr-2"
+          onClick={() => handleChoice('Job-Seeking')}
+        >
+          Job-Seeking
+        </button>
+        <button 
+          className="px-4 py-2 bg-green-500 text-white rounded"
+          onClick={() => handleChoice('Already Employed')}
+        >
+          Already Employed
+        </button>
       </div>
 
       {choice === 'Already Employed' && (
         <div>
           {loading ? (
-            <p>Loading gender pay data...</p>
+            <p>Loading gender pay gap data...</p>
           ) : (
-            payGapData && <PayGapVisual payGapData={payGapData} industry={userData.industry} />  
+            payGapData && <PayGapVisual payGapData={payGapData} industry={userData.industry} />
           )}
         </div>
       )}
 
+      {choice === 'Job-Seeking' && (
+        <JobSeekingResults region={userData.region} industry={userData.industry} />
+      )}
+
       {showLabourForceQuestion && (
-        <div className="labour-force-question">
-          <p>Would you like to know more about Labour Force information?</p>
+        <div className="labour-force-question mt-4">
+          <p className="mb-2">Would you like to know more about Labour Force information?</p>
           <div className="button-group">
-            <button onClick={() => handleLabourForceChoice('home')}>Go back to Home</button>
-            <button onClick={() => handleLabourForceChoice('next')}>Next</button>
+            <button 
+              className="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+              onClick={() => handleLabourForceChoice('home')}
+            >
+              Go back to Home
+            </button>
+            <button 
+              className="px-4 py-2 bg-blue-500 text-white rounded"
+              onClick={() => handleLabourForceChoice('next')}
+            >
+              Next
+            </button>
           </div>
         </div>
       )}
