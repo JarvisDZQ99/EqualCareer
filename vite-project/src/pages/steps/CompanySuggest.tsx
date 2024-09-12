@@ -38,6 +38,8 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry 
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const companiesPerPage = 5; // Number of companies to display per page
 
   useEffect(() => {
     fetchCompanies();
@@ -47,11 +49,13 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry 
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('https://ve0zg43wv0.execute-api.ap-southeast-2.amazonaws.com/production/api/company_suggest', {
-        params: { state: region, industry: industry }
-      });
-      console.log('Server response:', response.data);
-
+      const response = await axios.get(
+        'https://ve0zg43wv0.execute-api.ap-southeast-2.amazonaws.com/production/api/company_suggest',
+        {
+          params: { state: region, industry: industry }
+        }
+      );
+      
       let companiesData: unknown[];
       if (typeof response.data.body === 'string') {
         companiesData = JSON.parse(response.data.body);
@@ -64,26 +68,30 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry 
       }
 
       if (areCompanies(companiesData)) {
-        const filteredCompanies = companiesData.filter(company => 
-          company.primary_division_name.toLowerCase() === industry.toLowerCase()
+        const filteredCompanies = companiesData.filter(
+          (company) => company.primary_division_name.toLowerCase() === industry.toLowerCase()
         );
         setCompanies(filteredCompanies);
       } else {
-        console.error('Invalid company data:', companiesData);
         throw new Error('Data does not match expected format');
       }
     } catch (err) {
       if (axios.isAxiosError(err)) {
         setError(`Error fetching company data: ${err.message}`);
-        console.error('API error details:', err.response?.data);
       } else {
         setError(`An unexpected error occurred: ${(err as Error).message}`);
       }
-      console.error('Error fetching company data:', err);
     } finally {
       setLoading(false);
     }
   };
+
+  const totalPages = Math.ceil(companies.length / companiesPerPage);
+  const indexOfLastCompany = currentPage * companiesPerPage;
+  const indexOfFirstCompany = indexOfLastCompany - companiesPerPage;
+  const currentCompanies = companies.slice(indexOfFirstCompany, indexOfLastCompany);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   if (loading) {
     return <div>Loading recommended companies...</div>;
@@ -96,54 +104,93 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry 
   return (
     <div>
       <h3>Recommended Companies List - {region} ({industry})</h3>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th style={tableHeaderStyle}>Company Name</th>
-            <th style={tableHeaderStyle}>ABN</th>
-            <th style={tableHeaderStyle}>Division</th>
-            <th style={tableHeaderStyle}>Score</th>
-            <th style={tableHeaderStyle}>Gender Equality Action</th>
-            <th style={tableHeaderStyle}>Employee Support</th>
-            <th style={tableHeaderStyle}>Flexible Work</th>
-            <th style={tableHeaderStyle}>Workplace Overview</th>
-          </tr>
-        </thead>
-        <tbody>
-          {companies.length > 0 ? (
-            companies.map((company, index) => (
-              <tr key={index}>
-                <td style={tableCellStyle}>{company.primary_employer_name}</td>
-                <td style={tableCellStyle}>{company.primary_abn}</td>
-                <td style={tableCellStyle}>{company.primary_division_name}</td>
-                <td style={tableCellStyle}>{company.primary_abn_score}</td>
-                <td style={tableCellStyle}>{company.Action_on_gender_equality}</td>
-                <td style={tableCellStyle}>{company.Employee_support}</td>
-                <td style={tableCellStyle}>{company.Flexible_work}</td>
-                <td style={tableCellStyle}>{company.Workplace_overview}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={8} style={{ textAlign: 'center' }}>No companies found for the selected industry and region</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <div style={cardContainerStyle}>
+        {currentCompanies.length > 0 ? (
+          currentCompanies.map((company, index) => (
+            <div key={index} style={longCardStyle}>
+              <div style={cardHeaderStyle}>
+                <h4>{company.primary_employer_name}</h4>
+                <p><strong>ABN:</strong> {company.primary_abn}</p>
+                <p><strong>Industry:</strong> {company.primary_division_name}</p>
+              </div>
+              <div style={cardContentStyle}>
+                <p><strong>Total Score:</strong> {company.primary_abn_score}</p>
+                <p><strong>Gender Equality Action Score:</strong> {company.Action_on_gender_equality}</p>
+                <p><strong>Employee Support Score:</strong> {company.Employee_support}</p>
+                <p><strong>Flexible Work Score:</strong> {company.Flexible_work}</p>
+                <p><strong>Workplace Overview Score:</strong> {company.Workplace_overview}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div>No companies found for the selected industry and region</div>
+        )}
+      </div>
+
+      <div style={paginationStyle}>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            style={{
+              ...paginationButtonStyle,
+              backgroundColor: currentPage === index + 1 ? '#4CAF50' : '#f2f2f2',
+            }}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
 
-const tableHeaderStyle: React.CSSProperties = {
-  backgroundColor: '#f2f2f2',
-  padding: '12px',
-  textAlign: 'left',
-  borderBottom: '1px solid #ddd'
+const cardContainerStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px',
+  marginTop: '16px',
 };
 
-const tableCellStyle: React.CSSProperties = {
-  padding: '12px',
-  borderBottom: '1px solid #ddd'
+const longCardStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  border: '1px solid #ddd',
+  borderRadius: '8px',
+  padding: '16px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  backgroundColor: '#f9f9f9',
+  width: '100%',
+  maxWidth: '900px',
+  margin: '0 auto',
+};
+
+const cardHeaderStyle: React.CSSProperties = {
+  flex: 1,
+  marginRight: '16px',
+};
+
+const cardContentStyle: React.CSSProperties = {
+  flex: 2,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+};
+
+const paginationStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '16px',
+};
+
+const paginationButtonStyle: React.CSSProperties = {
+  padding: '8px 16px',
+  margin: '0 4px',
+  borderRadius: '4px',
+  cursor: 'pointer',
+  border: '1px solid #ddd',
 };
 
 export default JobSeekingResults;
