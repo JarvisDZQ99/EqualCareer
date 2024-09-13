@@ -11,7 +11,7 @@ const Header: React.FC = () => {
         <h1>Equal Career</h1>
       </div>
       <nav>
-        <Link to="/home" className="nav-link">Home</Link>
+        <Link to="/" className="nav-link">Home</Link>
         <Link to="/journey" className="nav-link">Career Journey</Link>
       </nav>
     </header>
