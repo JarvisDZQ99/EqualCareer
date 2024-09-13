@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import StarRating from '../../components/StarRating';
 
 interface JobSeekingResultsProps {
   region: string;
@@ -39,7 +40,7 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const companiesPerPage = 5; // Number of companies to display per page
+  const companiesPerPage = 5;
 
   useEffect(() => {
     fetchCompanies();
@@ -114,11 +115,11 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry 
                 <p><strong>Industry:</strong> {company.primary_division_name}</p>
               </div>
               <div style={cardContentStyle}>
-                <p><strong>Total Score:</strong> {company.primary_abn_score}</p>
-                <p><strong>Gender Equality Action Score:</strong> {company.Action_on_gender_equality}</p>
-                <p><strong>Employee Support Score:</strong> {company.Employee_support}</p>
-                <p><strong>Flexible Work Score:</strong> {company.Flexible_work}</p>
-                <p><strong>Workplace Overview Score:</strong> {company.Workplace_overview}</p>
+                <p><strong>Total Score:</strong> <StarRating score={company.primary_abn_score} /></p>
+                <p><strong>Gender Equality Action Score:</strong> <StarRating score={Number(company.Action_on_gender_equality)} /></p>
+                <p><strong>Employee Support Score:</strong> <StarRating score={Number(company.Employee_support)} /></p>
+                <p><strong>Flexible Work Score:</strong> <StarRating score={Number(company.Flexible_work)} /></p>
+                <p><strong>Workplace Overview Score:</strong> <StarRating score={Number(company.Workplace_overview)} /></p>
               </div>
             </div>
           ))
