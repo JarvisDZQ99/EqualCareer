@@ -13,11 +13,12 @@ interface Company {
   primary_division_name: string;
   primary_abn_score: number;
   State: string;
-  Action_on_gender_equality: string;
-  Employee_support: string;
-  Flexible_work: string;
-  Workplace_overview: string;
+  "Action on gender equality": string; 
+  "Employee support": string; 
+  "Flexible work": string; 
+  "Workplace overview": string; 
 }
+
 
 function isCompany(obj: unknown): obj is Company {
   return (
@@ -116,10 +117,18 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry 
               </div>
               <div style={cardContentStyle}>
                 <p><strong>Total Score:</strong> <StarRating score={company.primary_abn_score} /></p>
-                <p><strong>Gender Equality Action Score:</strong> <StarRating score={Number(company.Action_on_gender_equality)} /></p>
-                <p><strong>Employee Support Score:</strong> <StarRating score={Number(company.Employee_support)} /></p>
-                <p><strong>Flexible Work Score:</strong> <StarRating score={Number(company.Flexible_work)} /></p>
-                <p><strong>Workplace Overview Score:</strong> <StarRating score={Number(company.Workplace_overview)} /></p>
+                <p><strong>Gender Equality Action Score:</strong> 
+                  <StarRating score={Number(company["Action on gender equality"])} />
+                </p>
+                <p><strong>Employee Support Score:</strong> 
+                  <StarRating score={Number(company["Employee support"])} />
+                </p>
+                <p><strong>Flexible Work Score:</strong> 
+                  <StarRating score={Number(company["Flexible work"])} />
+                </p>
+                <p><strong>Workplace Overview Score:</strong> 
+                  <StarRating score={Number(company["Workplace overview"])} />
+                </p>
               </div>
             </div>
           ))
