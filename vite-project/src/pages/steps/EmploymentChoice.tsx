@@ -14,7 +14,6 @@ interface EmploymentChoiceProps {
 
 const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, userData }) => {
   const [choice, setChoice] = useState('');
-  const [showLabourForceQuestion, setShowLabourForceQuestion] = useState(false);
 
   const handleChoice = (selectedChoice: string) => {
     setChoice(selectedChoice);
@@ -26,8 +25,6 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, userData })
   const handleLabourForceChoice = (choice: 'home' | 'next') => {
     if (choice === 'home') {
       onNext('home');
-    } else {
-      setShowLabourForceQuestion(false);
     }
   };
 
@@ -60,7 +57,7 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, userData })
           <PayGapVisual industry={userData.industry} region={userData.region} />
           <LabourForceInfo
             selectedIndustry={userData.industry}
-            showLabourForceQuestion={showLabourForceQuestion}
+            showLabourForceQuestion={true}
             onLabourForceChoice={handleLabourForceChoice}
           />
         </motion.div>
