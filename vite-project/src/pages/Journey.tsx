@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import Welcome from '../pages/steps/Welcome';
 import UserInfoForm from '../pages/steps/UserInfoForm';
 import EmploymentChoice from '../pages/steps/EmploymentChoice';
 import LabourForceInfo from '../pages/steps/LabourForceInfo'; 
@@ -36,12 +35,23 @@ const Journey: React.FC = () => {
     }
   };
 
+  const handleLabourForceChoice = (choice: 'home' | 'next') => {
+    if (choice === 'home') {
+      setShowLabourForceInfo(false); 
+    } else if (choice === 'next') {
+      setShowLabourForceInfo(true); 
+    }
+  };
+
   return (
     <div className="journey-page">
       <Header />
       
       <div className="content-container">
-        <Welcome />
+
+        <div className="step-container" style={{ marginBottom: '20px' }}>
+          <p>We will guide you through data to make better career decisions.</p>
+        </div>
 
         <UserInfoForm onNext={handleUserInfoSubmit} />
 
@@ -52,8 +62,13 @@ const Journey: React.FC = () => {
         )}
 
         {showLabourForceInfo && (
-          <LabourForceInfo selectedIndustry={userData.industry} />
+          <LabourForceInfo 
+            selectedIndustry={userData.industry} 
+            showLabourForceQuestion={true} 
+            onLabourForceChoice={handleLabourForceChoice} 
+          />
         )}
+
       </div>
       
       <Footer />
@@ -62,6 +77,3 @@ const Journey: React.FC = () => {
 };
 
 export default Journey;
-
-
-

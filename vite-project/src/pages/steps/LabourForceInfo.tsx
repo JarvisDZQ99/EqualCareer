@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { motion } from 'framer-motion';  
+import { motion } from 'framer-motion';
+import { NavLink } from 'react-router-dom';
 
 interface LabourForceData {
   industry: string;
@@ -13,18 +14,25 @@ interface LabourForceData {
 
 interface LabourForceInfoProps {
   selectedIndustry: string;
+  showLabourForceQuestion: boolean;
+  onLabourForceChoice: (choice: 'home' | 'next') => void;
 }
 
-const LabourForceInfo: React.FC<LabourForceInfoProps> = ({ selectedIndustry }) => {
+const LabourForceInfo: React.FC<LabourForceInfoProps> = ({ 
+  selectedIndustry, 
+  showLabourForceQuestion, 
+  onLabourForceChoice 
+}) => {
   const [labourForceData, setLabourForceData] = useState<LabourForceData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
-    if (selectedIndustry) {
+    if (showInfo && selectedIndustry) {
       fetchLabourForceData();
     }
-  }, [selectedIndustry]);
+  }, [selectedIndustry, showInfo]);
 
   const fetchLabourForceData = async () => {
     setLoading(true);
@@ -49,17 +57,13 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({ selectedIndustry }) =
     }
   };
 
-  if (loading) {
-    return <p>Loading labour force data...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
-
-  if (!labourForceData) {
-    return <p>No labour force data available for the selected industry.</p>;
-  }
+  const handleLabourForceChoice = (choice: 'home' | 'next') => {
+    if (choice === 'next') {
+      setShowInfo(true);
+    } else {
+      onLabourForceChoice(choice);
+    }
+  };
 
   const fadeInVariants = {
     hidden: { opacity: 0 },
@@ -97,36 +101,73 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({ selectedIndustry }) =
     color: 'white',
   };
 
+  const buttonStyle: React.CSSProperties = {
+    padding: '10px 15px',
+    color: 'white',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  };
+
   return (
     <motion.div
       style={containerStyle}
       initial="hidden"
       animate="visible"
-      variants={fadeInVariants} 
+      variants={fadeInVariants}
     >
-      <motion.h2 style={titleStyle} variants={fadeInVariants}>
-        Labour Force Information for {labourForceData.industry}
-      </motion.h2>
-      <motion.table style={tableStyle} variants={fadeInVariants}>
-        <thead>
-          <tr>
-            <th style={{ ...thTdStyle, ...thStyle }}>Men</th>
-            <th style={{ ...thTdStyle, ...thStyle }}>Women</th>
-            <th style={{ ...thTdStyle, ...thStyle }}>Difference</th>
-            <th style={{ ...thTdStyle, ...thStyle }}>Total Employees</th>
-            <th style={{ ...thTdStyle, ...thStyle }}>Gender Gap Ratio (%)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style={thTdStyle}>{labourForceData.men.toLocaleString()}</td>
-            <td style={thTdStyle}>{labourForceData.women.toLocaleString()}</td>
-            <td style={thTdStyle}>{labourForceData.difference.toLocaleString()}</td>
-            <td style={thTdStyle}>{labourForceData.total_employees.toLocaleString()}</td>
-            <td style={thTdStyle}>{labourForceData.gap_ratio.toFixed(2)}%</td>
-          </tr>
-        </tbody>
-      </motion.table>
+      {showLabourForceQuestion && (
+        <>
+          <h2 style={titleStyle}>Would you like to know more about Labour Force information?</h2>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '20px' }}>
+            <NavLink to="/" style={{ textDecoration: 'none' }}>
+              <button 
+                style={{...buttonStyle, backgroundColor: '#f44336'}}
+              >
+                Go back to Home
+              </button>
+            </NavLink>
+            <button 
+              style={{...buttonStyle, backgroundColor: '#4CAF50'}}
+              onClick={() => handleLabourForceChoice('next')}
+            >
+              {showInfo ? 'Refresh Labour Force Info' : 'Show Labour Force Info'}
+            </button>
+          </div>
+        </>
+      )}
+
+      {loading && <p>Loading labour force data...</p>}
+      
+      {error && <p>{error}</p>}
+
+      {showInfo && labourForceData && (
+        <>
+          <motion.h2 style={titleStyle} variants={fadeInVariants}>
+            Labour Force Information for {labourForceData.industry}
+          </motion.h2>
+          <motion.table style={tableStyle} variants={fadeInVariants}>
+            <thead>
+              <tr>
+                <th style={{ ...thTdStyle, ...thStyle }}>Men</th>
+                <th style={{ ...thTdStyle, ...thStyle }}>Women</th>
+                <th style={{ ...thTdStyle, ...thStyle }}>Difference</th>
+                <th style={{ ...thTdStyle, ...thStyle }}>Total Employees</th>
+                <th style={{ ...thTdStyle, ...thStyle }}>Gender Gap Ratio (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={thTdStyle}>{labourForceData.men.toLocaleString()}</td>
+                <td style={thTdStyle}>{labourForceData.women.toLocaleString()}</td>
+                <td style={thTdStyle}>{labourForceData.difference.toLocaleString()}</td>
+                <td style={thTdStyle}>{labourForceData.total_employees.toLocaleString()}</td>
+                <td style={thTdStyle}>{labourForceData.gap_ratio.toFixed(2)}%</td>
+              </tr>
+            </tbody>
+          </motion.table>
+        </>
+      )}
     </motion.div>
   );
 };

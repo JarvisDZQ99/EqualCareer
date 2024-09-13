@@ -51,15 +51,6 @@
   z-index: 2;
 }
 
-.home-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  letter-spacing: 2px;
-}
-
 .home-subtitle {
   font-size: 1.8rem;
   font-weight: 300;
