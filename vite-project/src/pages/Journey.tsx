@@ -14,11 +14,11 @@ const Journey: React.FC = () => {
   const [userData, setUserData] = useState({
     gender: '',
     industry: '',
-    level: '',
+    // level: '',
     region: ''
   });
 
-  const handleUserInfoSubmit = (userInfo: { gender: string; industry: string; level: string; region: string }) => {
+  const handleUserInfoSubmit = (userInfo: { gender: string; industry: string; /*level: string;*/ region: string }) => {
     setUserData(userInfo); 
     setShowEmploymentChoice(true);
 

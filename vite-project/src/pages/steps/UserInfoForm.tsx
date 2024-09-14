@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Select, { SingleValue } from 'react-select';
 
 interface UserInfoFormProps {
-  onNext: (userInfo: { gender: string; industry: string; level: string; region: string }) => void;
+  onNext: (userInfo: { gender: string; industry: string; /*level: string;*/ region: string }) => void;
 }
 
 interface Option {
@@ -13,7 +13,7 @@ interface Option {
 const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   const [gender, setGender] = useState<Option | null>(null);
   const [industry, setIndustry] = useState<Option | null>(null);
-  const [level, setLevel] = useState<Option | null>(null);
+  // const [level, setLevel] = useState<Option | null>(null);
   const [region, setRegion] = useState<Option | null>(null);
 
   const genderOptions: Option[] = [
@@ -21,12 +21,12 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
     { value: 'Male', label: 'Male' }
   ];
 
-  const experienceLevelOptions: Option[] = [
-    { value: 'Entry Level', label: 'Entry Level' },
-    { value: 'Mid Level', label: 'Mid Level' },
-    { value: 'Senior Level', label: 'Senior Level' },
-    { value: 'Executive', label: 'Executive' }
-  ];
+  // const experienceLevelOptions: Option[] = [
+  //   { value: 'Entry Level', label: 'Entry Level' },
+  //   { value: 'Mid Level', label: 'Mid Level' },
+  //   { value: 'Senior Level', label: 'Senior Level' },
+  //   { value: 'Executive', label: 'Executive' }
+  // ];
 
   const australianStates: Option[] = [
     { value: 'NSW', label: 'NSW' },
@@ -62,11 +62,11 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   ];
 
   const handleNext = () => {
-    if (gender && industry && level && region) {
+    if (gender && industry /*&& level*/ && region) {
       onNext({
         gender: gender.value,
         industry: industry.value,
-        level: level.value,
+        // level: level.value,
         region: region.value
       });
     } else {
@@ -95,7 +95,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
           placeholder="Select or Search Industry"
         />
       </label>
-      <label>
+      {/* <label>
         Experience Level:
         <Select
           value={level}
@@ -103,7 +103,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
           options={experienceLevelOptions}
           placeholder="Select Experience Level"
         />
-      </label>
+      </label> */}
       <label>
         Region:
         <Select
