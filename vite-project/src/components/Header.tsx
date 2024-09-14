@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../styles/Header.css';
+import '../pages/styles/Header.css';
 import logoImage from '/logo.png';
 
 const Header: React.FC = () => {

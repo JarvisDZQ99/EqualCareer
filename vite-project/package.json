@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@math.gl/web-mercator": "^4.0.1",
+    "@mui/material": "^6.1.0",
     "axios": "^1.7.7",
     "chart.js": "^4.4.4",
     "framer-motion": "^11.5.4",

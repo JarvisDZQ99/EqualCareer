@@ -4,7 +4,7 @@ import EmploymentChoice from '../pages/steps/EmploymentChoice';
 import LabourForceInfo from '../pages/steps/LabourForceInfo'; 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import '../styles/Journey.css';
+import '../pages/styles/Journey.css';
 
 const Journey: React.FC = () => {
   const [showEmploymentChoice, setShowEmploymentChoice] = useState(false);
