@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Journey from './pages/Journey';
+import Home from './Home';
+import Journey from './Journey';
 
 const App: React.FC = () => {
   return (

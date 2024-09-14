@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
-import UserInfoForm from '../pages/steps/UserInfoForm';
-import EmploymentChoice from '../pages/steps/EmploymentChoice';
-import LabourForceInfo from '../pages/steps/LabourForceInfo'; 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import '../pages/styles/Journey.css';
+import UserInfoForm from './steps/UserInfoForm';
+import EmploymentChoice from './steps/EmploymentChoice';
+import LabourForceInfo from './steps/LabourForceInfo'; 
+import Header from './components/Header';
+import Footer from './components/Footer';
+import './styles/Journey.css';
 
 const Journey: React.FC = () => {
   const [showEmploymentChoice, setShowEmploymentChoice] = useState(false);
@@ -48,10 +48,6 @@ const Journey: React.FC = () => {
       <Header />
       
       <div className="content-container">
-
-        <div className="step-container" style={{ marginBottom: '20px' }}>
-          <p>We will guide you through data to make better career decisions.</p>
-        </div>
 
         <UserInfoForm onNext={handleUserInfoSubmit} />
 

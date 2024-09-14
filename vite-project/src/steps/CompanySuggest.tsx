@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import StarRating from '../../components/StarRating';
+import StarRating from '../components/StarRating';
 
 interface JobSeekingResultsProps {
   region: string;
