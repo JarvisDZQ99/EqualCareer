@@ -15,6 +15,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   const [industry, setIndustry] = useState<Option | null>(null);
   // const [level, setLevel] = useState<Option | null>(null);
   const [region, setRegion] = useState<Option | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const genderOptions: Option[] = [
     { value: 'Female', label: 'Female' },
@@ -74,6 +75,32 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
     }
   };
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const buttonStyle: React.CSSProperties = {
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    borderRadius: '25px',
+    border: 'none',
+    background: isHovered ? 'linear-gradient(45deg, #5dade2, #2980b9)' : 'linear-gradient(45deg, #3498db, #2980b9)',
+    color: '#ffffff',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    display: 'block',
+    margin: '20px auto 0',
+    transform: isHovered ? 'translateY(-2px)' : 'translateY(0)', 
+  };
+
   return (
     <div className="step-container">
       <h2>Enter Your Information</h2>
@@ -113,7 +140,14 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
           placeholder="Select Region"
         />
       </label>
-      <button onClick={handleNext}>Next</button>
+      <button
+        onClick={handleNext}
+        style={buttonStyle}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        Next
+      </button>
     </div>
   );
 };
