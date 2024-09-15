@@ -126,7 +126,28 @@
     color: #333;
     margin: 10px 0;
   }
-  
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+  }
+
+  .button-previous {
+    background-color: #4CAF50; 
+    color: white;             
+    padding: 10px 20px;    
+    border: none;             
+    border-radius: 5px;        
+    cursor: pointer;
+    margin-right: 10px;         
+    transition: background-color 0.3s ease;
+  }
+
+  .button-previous:hover {
+    background-color: #45a049; 
+  }
+
   @media (max-width: 768px) {
     .small-card {
       flex: 1 1 100%;
