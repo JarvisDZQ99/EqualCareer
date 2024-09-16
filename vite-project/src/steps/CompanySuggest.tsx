@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ArrowUp, ArrowDown } from 'lucide-react';
 import StarRating from '../components/StarRating';
 import '../styles/CompanySuggest.css';
 
@@ -39,16 +40,22 @@ function areCompanies(arr: unknown[]): arr is Company[] {
 
 const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry, onPrevious }) => {
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortCriterion, setSortCriterion] = useState<keyof Company>('primary_abn_score');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [filterText, setFilterText] = useState('');
   const companiesPerPage = 5;
 
   useEffect(() => {
     fetchCompanies();
   }, [region, industry]);
+
+  useEffect(() => {
+    filterCompanies();
+  }, [companies, filterText]);
 
   const fetchCompanies = async () => {
     setLoading(true);
@@ -91,6 +98,15 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
     }
   };
 
+  const filterCompanies = () => {
+    const filtered = companies.filter(company => 
+      company.primary_employer_name.toLowerCase().includes(filterText.toLowerCase()) ||
+      company.primary_division_name.toLowerCase().includes(filterText.toLowerCase())
+    );
+    setFilteredCompanies(filtered);
+    setCurrentPage(1);
+  };
+
   const sortCompanies = (companies: Company[], criterion: keyof Company, order: 'asc' | 'desc') => {
     return [...companies].sort((a, b) => {
       const aValue = Number(a[criterion]) || 0;
@@ -108,7 +124,7 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
     }
   };
 
-  const sortedCompanies = sortCompanies(companies, sortCriterion, sortOrder);
+  const sortedCompanies = sortCompanies(filteredCompanies, sortCriterion, sortOrder);
   const totalPages = Math.ceil(sortedCompanies.length / companiesPerPage);
   const indexOfLastCompany = currentPage * companiesPerPage;
   const indexOfFirstCompany = indexOfLastCompany - companiesPerPage;
@@ -116,8 +132,42 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const SortingSection: React.FC = () => (
+    <div className="sorting-container">
+      <label htmlFor="sort-select" className="label">Sort companies by: </label>
+      <select
+        id="sort-select"
+        value={sortCriterion}
+        onChange={(e) => handleSort(e.target.value as keyof Company)}
+        className="select"
+      >
+        <option value="primary_abn_score">Total Score</option>
+        <option value="Action on gender equality">Gender Equality Action Score</option>
+        <option value="Employee support">Employee Support Score</option>
+        <option value="Flexible work">Flexible Work Score</option>
+        <option value="Workplace overview">Workplace Overview Score</option>
+      </select>
+      <button 
+        onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} 
+        className="sort-order-button"
+      >
+        {sortOrder === 'asc' 
+          ? <><ArrowUp size={18} /> Ascending</> 
+          : <><ArrowDown size={18} /> Descending</>
+        }
+      </button>
+    </div>
+  );
+
+  const ScoreItem: React.FC<{ title: string; score: number }> = ({ title, score }) => (
+    <div className="score-item">
+      <span className="score-title">{title}:</span>
+      <StarRating score={score} />
+    </div>
+  );
+
   if (loading) {
-    return <div className="loading">Loading recommended companies...</div>;
+    return <div className="loading-spinner"></div>;
   }
 
   if (error) {
@@ -129,26 +179,18 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
       <h2 className="title">Recommended Companies - {region} ({industry})</h2>
       <div className="user-info-form-info-box">
         <span className="user-info-form-info-icon">ℹ</span>
-        Below are the recommended companies based on your selected region and industry. You can sort the companies by different criteria using the dropdown menu.
+        Below are the recommended companies based on your selected region and industry. You can sort and filter the companies using the options below.
       </div>
-      <div className="sorting-container">
-        <label htmlFor="sort-select" className="label">Sort by: </label>
-        <select
-          id="sort-select"
-          value={sortCriterion}
-          onChange={(e) => handleSort(e.target.value as keyof Company)}
-          className="select"
-        >
-          <option value="primary_abn_score">Total Score</option>
-          <option value="Action on gender equality">Gender Equality Action Score</option>
-          <option value="Employee support">Employee Support Score</option>
-          <option value="Flexible work">Flexible Work Score</option>
-          <option value="Workplace overview">Workplace Overview Score</option>
-        </select>
-        <button onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} className="sort-order-button">
-          {sortOrder === 'asc' ? '↑' : '↓'}
-        </button>
+      <div className="filter-container">
+        <input
+          type="text"
+          placeholder="Filter by company name or industry"
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+          className="filter-input"
+        />
       </div>
+      <SortingSection />
       <div className="card-container">
         {currentCompanies.length > 0 ? (
           currentCompanies.map((company, index) => (
@@ -168,7 +210,7 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
             </div>
           ))
         ) : (
-          <div className="no-companies">No companies found for the selected industry and region</div>
+          <div className="no-companies">No companies found for the selected criteria</div>
         )}
       </div>
 
@@ -196,12 +238,5 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
     </div>
   );
 };
-
-const ScoreItem: React.FC<{ title: string; score: number }> = ({ title, score }) => (
-  <div className="score-item">
-    <span className="score-title">{title}:</span>
-    <StarRating score={score} />
-  </div>
-);
 
 export default JobSeekingResults;

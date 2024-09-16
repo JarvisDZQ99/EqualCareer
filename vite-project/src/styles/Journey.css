@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
+:root {
+  --primary-color: #4CAF50;
+  --primary-hover-color: #45a049;
+  --text-color: #333333;
+  --background-color: #f5f7fa;
+  --input-background: #ffffff;
+  --border-color: #e0e0e0;
+}
+
 .journey-page, .content-container, .step-container, .step-container h2, .step-container button, 
 .step-container label, .step-container input, .step-container select {
   font-family: 'Montserrat', sans-serif;
@@ -9,6 +18,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .content-container {
@@ -25,44 +36,49 @@
   margin-bottom: 40px;
   width: 100%;
   max-width: 600px;
+  background-color: var(--input-background);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .step-container h2 {
   margin-bottom: 20px;
+  color: var(--primary-color);
 }
 
 .step-container button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
 }
 
 .step-container button:hover {
-  background-color: #45a049;
-}
-
-.button-group {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.submit-button {
-  display: block;
-  margin: 20px auto 0;
+  background-color: var(--primary-hover-color);
 }
 
 .step-container label {
   margin-bottom: 15px;
+  display: block;
+  text-align: left;
 }
 
 .step-container input, .step-container select {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   margin-top: 5px;
   box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.step-container input:focus, .step-container select:focus {
+  outline: none;
+  border-color: var(--primary-color);
 }

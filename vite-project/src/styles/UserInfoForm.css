@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
 .user-info-form-container, .user-info-form-info-box, .user-info-form-label, 
-.user-info-form-button, .react-select__control, .react-select__single-value, 
-.react-select__option {
+.user-info-form-button, .react-select__control, .react-select__option {
   font-family: 'Montserrat', sans-serif;
 }
 

@@ -108,11 +108,9 @@ const Journey: React.FC = () => {
   return (
     <div className="journey-page">
       <Header />
-      
       <div className="content-container">
         {steps[currentStep]}
       </div>
-      
       <Footer />
     </div>
   );

@@ -53,14 +53,6 @@
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.labourbutton-previous {
-  background: linear-gradient(45deg, #3498db, #2980b9);
-}
-
-.labourbutton-previous:hover {
-  background: linear-gradient(45deg, #2980b9, #3498db);
-}
-
 .data-card-container {
   display: flex;
   flex-wrap: wrap;
