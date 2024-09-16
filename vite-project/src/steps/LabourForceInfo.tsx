@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Typography, CircularProgress, Box } from '@mui/material';
 import '../styles/LabourForceInfo.css';
 
@@ -25,7 +25,6 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({
   const [labourForceData, setLabourForceData] = useState<LabourForceData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
   useEffect(() => {
     if (selectedIndustry) {
@@ -81,42 +80,29 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({
     }
   };
 
-  const toggleCard = (cardType: string) => {
-    if (expandedCard === cardType) {
-      setExpandedCard(null);
-    } else {
-      setExpandedCard(cardType);
-    }
-  };
-
   const ExpandableCard: React.FC<{
     title: string;
     value: string | number;
     type: string;
   }> = ({ title, value, type }) => (
     <motion.div
-      className={`data-card small-card ${expandedCard === type ? 'expanded' : ''}`}
-      onClick={() => toggleCard(type)}
+      className="data-card small-card expanded"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       layout
     >
       <h3>{title}</h3>
       <Typography className="typography-h5">{value}</Typography>
-      <AnimatePresence>
-        {expandedCard === type && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="card-summary"
-          >
-            <Typography>{getSummary(type)}</Typography>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        initial={{ opacity: 1, height: 'auto' }}
+        animate={{ opacity: 1, height: 'auto' }}
+        className="card-summary"
+      >
+        <Typography>{getSummary(type)}</Typography>
+      </motion.div>
     </motion.div>
   );
+  
 
   return (
     <motion.div className="labour-force-info" initial="hidden" animate="visible" variants={fadeInVariants}>
