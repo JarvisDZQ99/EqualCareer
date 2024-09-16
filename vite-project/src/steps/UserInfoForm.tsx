@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Select, { SingleValue } from 'react-select';
+import '../styles/UserInfoForm.css';  
 
 interface UserInfoFormProps {
-  onNext: (userInfo: { gender: string; industry: string; /*level: string;*/ region: string }) => void;
+  onNext: (userInfo: { gender: string; industry: string; region: string }) => void;
 }
 
 interface Option {
@@ -13,21 +14,12 @@ interface Option {
 const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   const [gender, setGender] = useState<Option | null>(null);
   const [industry, setIndustry] = useState<Option | null>(null);
-  // const [level, setLevel] = useState<Option | null>(null);
   const [region, setRegion] = useState<Option | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   const genderOptions: Option[] = [
     { value: 'Female', label: 'Female' },
     { value: 'Male', label: 'Male' }
   ];
-
-  // const experienceLevelOptions: Option[] = [
-  //   { value: 'Entry Level', label: 'Entry Level' },
-  //   { value: 'Mid Level', label: 'Mid Level' },
-  //   { value: 'Senior Level', label: 'Senior Level' },
-  //   { value: 'Executive', label: 'Executive' }
-  // ];
 
   const australianStates: Option[] = [
     { value: 'NSW', label: 'NSW' },
@@ -63,11 +55,10 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   ];
 
   const handleNext = () => {
-    if (gender && industry /*&& level*/ && region) {
+    if (gender && industry && region) {
       onNext({
         gender: gender.value,
         industry: industry.value,
-        // level: level.value,
         region: region.value
       });
     } else {
@@ -75,76 +66,49 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
     }
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const buttonStyle: React.CSSProperties = {
-    padding: '12px 24px',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    borderRadius: '25px',
-    border: 'none',
-    background: isHovered ? 'linear-gradient(45deg, #5dade2, #2980b9)' : 'linear-gradient(45deg, #3498db, #2980b9)',
-    color: '#ffffff',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    boxShadow: '0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)',
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-    display: 'block',
-    margin: '20px auto 0',
-    transform: isHovered ? 'translateY(-2px)' : 'translateY(0)', 
-  };
-
   return (
-    <div className="step-container">
-      <h2>Enter Your Information</h2>
-      <label>
-        Gender:
+    <div className="user-info-form-container">
+      <h2 className="user-info-form-heading">Personalize Your Career Journey</h2>
+      <div className="user-info-form-info-box">
+        <span className="user-info-form-info-icon">ℹ</span>
+        Your responses help us tailor our recommendations and insights to your specific situation. We take your privacy seriously and do not share your personal information.
+      </div>
+      <label className="user-info-form-label">
+        Gender
         <Select
           value={gender}
           onChange={(selectedOption: SingleValue<Option>) => setGender(selectedOption)}
           options={genderOptions}
           placeholder="Select Gender"
+          className="user-info-form-select"
+          classNamePrefix="react-select"
         />
       </label>
-      <label>
-        Industry:
+      <label className="user-info-form-label">
+        Industry
         <Select
           value={industry}
           onChange={(selectedOption: SingleValue<Option>) => setIndustry(selectedOption)}
           options={industryOptions}
           placeholder="Select or Search Industry"
+          className="user-info-form-select"
+          classNamePrefix="react-select"
         />
       </label>
-      {/* <label>
-        Experience Level:
-        <Select
-          value={level}
-          onChange={(selectedOption: SingleValue<Option>) => setLevel(selectedOption)}
-          options={experienceLevelOptions}
-          placeholder="Select Experience Level"
-        />
-      </label> */}
-      <label>
-        Region:
+      <label className="user-info-form-label">
+        Region
         <Select
           value={region}
           onChange={(selectedOption: SingleValue<Option>) => setRegion(selectedOption)}
           options={australianStates}
           placeholder="Select Region"
+          className="user-info-form-select"
+          classNamePrefix="react-select"
         />
       </label>
       <button
         onClick={handleNext}
-        style={buttonStyle}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        className="user-info-form-button"
       >
         Next
       </button>

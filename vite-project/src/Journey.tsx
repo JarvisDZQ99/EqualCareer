@@ -3,6 +3,7 @@ import UserInfoForm from './steps/UserInfoForm';
 import EmploymentChoice from './steps/EmploymentChoice';
 import JobSeekingResults from './steps/CompanySuggest';
 import LabourForceInfo from './steps/LabourForceInfo';
+import PayGapVisual from './steps/PayGapVisual'; 
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './styles/Journey.css';
@@ -28,15 +29,20 @@ const Journey: React.FC = () => {
 
   function handleEmploymentChoice(choice: string) {
     switch(choice) {
-      case 'Job-Seeking':
+      case 'JobSeekingResults':
         setCurrentStep(2);
         break;
-      case 'show-labour-force':
+      case 'PayGapVisual':
         setCurrentStep(3);
+        break;
+      case 'UserInfoForm':  
+        setCurrentStep(1);
         break;
       case 'home':
         setCurrentStep(0);
         break;
+      default:
+        console.error('Invalid choice:', choice);
     }
   }
 
@@ -49,7 +55,20 @@ const Journey: React.FC = () => {
   }
 
   function handlePrevious() {
-    setCurrentStep(prevStep => Math.max(0, prevStep - 1));
+    setCurrentStep(prevStep => {
+      if (prevStep === 4) {  
+        return 3;  
+      } else if (prevStep === 3) {  
+        return 1;  
+      }
+      return Math.max(0, prevStep - 1); 
+    });
+  }  
+
+  function handlePayGapNavigation(choice: string) {
+    if (choice === 'show-labour-force') {
+      setCurrentStep(4);  
+    }
   }
 
   const steps: Array<ReactElement> = [
@@ -68,6 +87,13 @@ const Journey: React.FC = () => {
       region={userData.region} 
       industry={userData.industry} 
       onPrevious={handlePrevious}
+    />,
+    <PayGapVisual 
+      key="pay-gap-visual"
+      industry={userData.industry}
+      region={userData.region}
+      onPrevious={handlePrevious}
+      onNext={handlePayGapNavigation}
     />,
     <LabourForceInfo
       key="labour-force-info"

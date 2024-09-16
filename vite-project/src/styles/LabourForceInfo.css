@@ -1,5 +1,5 @@
 .labour-force-info {
-  font-family: serif;
+  font-family: Arial, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -12,48 +12,48 @@
   margin-bottom: 20px;
 }
 
-.button-container {
+.labourbutton-container {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 20px;
-}
-
-.button-link {
-  text-decoration: none;
+  margin-top: 20px;
 }
 
 .labourbutton {
-  padding: 12px 24px;
+  padding: 10px 20px;
   font-size: 16px;
-  font-weight: bold;
-  border-radius: 50px; 
+  font-weight: 500;
   border: none;
-  background: linear-gradient(45deg, #3498db, #2980b9);
-  color: #ffffff;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08); 
-  text-transform: uppercase;
-  letter-spacing: 1px;
+}
+
+.labourbutton.secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.labourbutton.secondary:hover {
+  background-color: #e0e0e0;
 }
 
 .labourbutton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08); 
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
 .labourbutton:active {
   transform: translateY(1px);
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08); 
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.labourbutton-next {
-  background-color: #4CAF50;
+.labourbutton-previous {
+  background: linear-gradient(45deg, #3498db, #2980b9);
 }
 
-.labourbutton-next:hover {
-  background-color: #45a049;
+.labourbutton-previous:hover {
+  background: linear-gradient(45deg, #2980b9, #3498db);
 }
 
 .data-card-container {
@@ -132,27 +132,6 @@
   font-weight: 400;
   color: #333;
   margin: 10px 0;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px; 
-}
-
-.labourbutton-previous {
-  background-color: #4CAF50; 
-  color: white;             
-  padding: 10px 20px;    
-  border: none;             
-  border-radius: 25px;        
-  cursor: pointer;
-  margin-right: 10px;         
-  transition: background-color 0.3s ease;
-}
-
-.labourbutton-previous:hover {
-  background-color: #45a049; 
 }
 
 @media (max-width: 768px) {

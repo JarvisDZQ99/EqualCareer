@@ -7,10 +7,12 @@ import '../styles/PayGapVisual.css';
 
 interface PayGapVisualProps {
   industry: string;
-  region: string;  
+  region: string;
+  onPrevious: () => void;
+  onNext: (choice: string) => void;
 }
 
-const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region }) => {
+const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region, onPrevious, onNext }) => {
   const [payGapData, setPayGapData] = useState<any>(null);
   const [regionPayGapData, setRegionPayGapData] = useState<any>(null);  
   const [loading, setLoading] = useState(false);
@@ -262,48 +264,60 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region }) => {
     </div>
   );
 
+  const handleShowLabourForce = () => {
+    onNext('show-labour-force');  
+  };
+
   return (
     <div className="paygap-container">
-      {loading ? (
-        <CircularProgress />  
-      ) : error ? (
-        <p className="error-message">{error}</p>
+      <h2 className="page-title">Pay Gap Analysis</h2>
+      
+      {loading || regionLoading ? (
+        <CircularProgress />
+      ) : error || regionError ? (
+        <p className="error-message">{error || regionError}</p>
       ) : (
-        <div className="chart-container">
-          <h3 className="chart-title">
-            Gender Pay Gap Over Time in {industry}
-          </h3>
-          <div className="chart-content">
-            <div className="chart">
-              <Line data={chartData} options={chartOptions} />
-            </div>
-            <div className="summary-container">
-              <SummaryBox title="Industry Summary" description={industrySummary} />
+        <>
+          <div className="chart-container">
+            <h3 className="chart-title">
+              Gender Pay Gap Over Time in {industry}
+            </h3>
+            <div className="chart-content">
+              <div className="chart">
+                <Line data={chartData} options={chartOptions} />
+              </div>
+              <div className="summary-container">
+                <SummaryBox title="Industry Summary" description={industrySummary} />
+              </div>
             </div>
           </div>
-        </div>
-      )}
-  
-      {regionLoading ? (
-        <CircularProgress />  
-      ) : regionError ? (
-        <p className="error-message">{regionError}</p>
-      ) : (
-        <div className="chart-container">
-          <h3 className="chart-title">
-            Gender Pay Gap in {region}
-          </h3>
-          <div className="chart-content">
-            <div className="chart">
-              <Line data={regionChartData} options={chartOptions} />
-            </div>
-            <div className="summary-container">
-              <SummaryBox title="Region Summary" description={regionSummary} />
+
+          <div className="chart-container">
+            <h3 className="chart-title">
+              Gender Pay Gap in {region}
+            </h3>
+            <div className="chart-content">
+              <div className="chart">
+                <Line data={regionChartData} options={chartOptions} />
+              </div>
+              <div className="summary-container">
+                <SummaryBox title="Region Summary" description={regionSummary} />
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
+
+    <div className="button-container">
+        <button className="button secondary" onClick={onPrevious}>
+          Previous
+        </button>
+        <button className="button primary" onClick={handleShowLabourForce}>
+          Show Labour Force Info
+        </button>
+      </div>
     </div>
+    
   );
 };
 
