@@ -193,7 +193,7 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({
           className="labourbutton labourbutton-secondary"
           onClick={() => onLabourForceChoice('previous')}
         >
-          ← Previous
+          Previous
         </button>
       </div>
     </motion.div>
