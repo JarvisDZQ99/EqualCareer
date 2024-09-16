@@ -36,7 +36,10 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, onPrevious 
   return (
     <div className="container">
       <h1 className="title">Choose Your Path</h1>
-      <p className="subtitle">Select your current situation to receive tailored insights and recommendations.</p>
+      <div className="user-info-form-info-box">
+        <span className="user-info-form-info-icon">ℹ</span>
+        Explore gender equality insights for your sector and region
+      </div>
 
       <div className="choice-container">
         <div 

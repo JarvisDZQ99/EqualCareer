@@ -271,7 +271,11 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region, onPreviou
   return (
     <div className="paygap-container">
       <h2 className="page-title">Pay Gap Analysis</h2>
-      
+      <div className="user-info-form-info-box">
+        <span className="user-info-form-info-icon">ℹ</span>
+        The charts below provide insights into the gender pay gap over time in your selected industry and region. <br />
+        You can analyze the data and compare the average salaries of men and women in the charts. 
+      </div>
       {loading || regionLoading ? (
         <CircularProgress />
       ) : error || regionError ? (
@@ -308,16 +312,19 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region, onPreviou
         </>
       )}
 
-    <div className="button-container">
-        <button className="button secondary" onClick={onPrevious}>
-          Previous
-        </button>
-        <button className="button primary" onClick={handleShowLabourForce}>
-          Show Labour Force Info
-        </button>
+      <div className="button-container">
+          <button className="button secondary" onClick={onPrevious}>
+            Previous
+          </button>
+          <button className="button primary" onClick={handleShowLabourForce}>
+            Show Labour Force Info
+          </button>
       </div>
+      <p className="wgea-resource">
+        For more information on gender equality in the workplace, visit the 
+        <a href="https://www.wgea.gov.au" target="_blank" rel="noopener noreferrer" className="wgea-link"> Workplace Gender Equality Agency (WGEA)</a>.
+      </p>
     </div>
-    
   );
 };
 

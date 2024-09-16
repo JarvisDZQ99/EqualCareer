@@ -14,7 +14,7 @@
   right: 0;
   bottom: 0;
   overflow: hidden;
-  font-family: 'Playfair Display', serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
 }
 
 .background-container {
@@ -54,31 +54,35 @@
 .home-subtitle {
   font-size: 1.8rem;
   font-weight: 300;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   letter-spacing: 1px;
   max-width: 800px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
 }
 
 .start-button {
-  padding: 12px 30px;
-  font-size: 1.2rem;
-  background-color: #368cba;
+  padding: 12px 24px;  
+  font-size: 1rem;    
+  background-color: #3182ce;  
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;  
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
+  transition: all 0.2s ease;  
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  display: block;
+  margin: 24px auto 0;
+  width: auto; 
 }
 
 .start-button:hover {
-  background-color: #1962b5;
-  transform: translateY(-2px);
+  background-color: #2b6cb0; 
+  transform: translateY(-2px); 
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -96,4 +100,3 @@
     padding: 10px 25px;
   }
 }
-

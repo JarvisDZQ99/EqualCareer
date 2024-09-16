@@ -38,6 +38,9 @@ const Journey: React.FC = () => {
       case 'UserInfoForm':  
         setCurrentStep(1);
         break;
+      case 'LabourForceInfo':  
+        setCurrentStep(4);
+        break;
       case 'home':
         setCurrentStep(0);
         break;
@@ -50,7 +53,7 @@ const Journey: React.FC = () => {
     if (choice === 'home') {
       setCurrentStep(0);
     } else if (choice === 'previous') {
-      setCurrentStep(1); 
+      setCurrentStep(3); 
     }
   }
 

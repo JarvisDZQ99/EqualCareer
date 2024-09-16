@@ -127,6 +127,10 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
   return (
     <div className="container">
       <h2 className="title">Recommended Companies - {region} ({industry})</h2>
+      <div className="user-info-form-info-box">
+        <span className="user-info-form-info-icon">ℹ</span>
+        Below are the recommended companies based on your selected region and industry. You can sort the companies by different criteria using the dropdown menu.
+      </div>
       <div className="sorting-container">
         <label htmlFor="sort-select" className="label">Sort by: </label>
         <select
@@ -185,6 +189,10 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
           Previous
         </button>
       </div>
+      <p className="wgea-resource">
+        For more information on gender equality in the workplace, visit the 
+        <a href="https://www.wgea.gov.au" target="_blank" rel="noopener noreferrer" className="wgea-link"> Workplace Gender Equality Agency (WGEA)</a>.
+      </p>
     </div>
   );
 };

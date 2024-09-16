@@ -123,7 +123,12 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({
       <h2 className="title">
         Labour Force Information for {selectedIndustry}
       </h2>
-
+      <div className="user-info-form-info-box">
+        <span className="user-info-form-info-icon">ℹ</span>
+        This section provides an overview of the labour force data in your selected industry. <br />
+        You can explore the total number of employees, the gender distribution, and the gender gap ratio. <br />
+        Click on any of the cards for more detailed information.
+      </div>
       {loading && (
         <Box display="flex" justifyContent="center" alignItems="center" mt={4}>
           <CircularProgress />
@@ -196,6 +201,10 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({
           Previous
         </button>
       </div>
+      <p className="wgea-resource">
+        For more information on gender equality in the workplace, visit the 
+        <a href="https://www.wgea.gov.au" target="_blank" rel="noopener noreferrer" className="wgea-link"> Workplace Gender Equality Agency (WGEA)</a>.
+      </p>
     </motion.div>
   );
 };

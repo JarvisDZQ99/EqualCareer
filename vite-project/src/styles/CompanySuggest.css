@@ -154,3 +154,26 @@
     color: #7f8c8d;
     margin-top: 20px;
   }
+
+  .wgea-resource {
+    margin-top: 30px; 
+    padding: 15px;
+    background-color: #ebf8ff; 
+    border-left: 4px solid #3182ce;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #2c5282;
+    text-align: center;
+    border-radius: 6px;
+  }
+  
+  .wgea-link {
+    color: #3182ce; 
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .wgea-link:hover {
+    text-decoration: underline;
+  }
+  
