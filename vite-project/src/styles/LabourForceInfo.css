@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+.labour-force-info, .title, .labourbutton, .data-card h3, .typography-body2, .typography-h5 {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .labour-force-info {
-  font-family: Arial, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;

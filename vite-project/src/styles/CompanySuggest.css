@@ -1,53 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
 .container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
-  }
+    font-family: 'Montserrat', sans-serif;
+}
   
-  .title {
+.title, .label, .select, .sort-order-button, .company-name, .info, .score-title, 
+.pagination-button, .previous-button, .loading, .error, .no-companies, .wgea-resource, 
+.wgea-link {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title {
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
     text-align: center;
-  }
+}
   
-  .sorting-container {
+.sorting-container {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-  }
+}
   
-  .label {
-    margin-right: 10px;
+.label, .select, .sort-order-button {
     font-size: 16px;
-  }
+}
   
-  .select {
+.select, .sort-order-button {
     padding: 8px 12px;
-    font-size: 16px;
     border-radius: 4px;
     border: 1px solid #ddd;
     margin-right: 10px;
-  }
+}
   
-  .sort-order-button {
-    padding: 8px 12px;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
+.sort-order-button {
     background: #f0f0f0;
     cursor: pointer;
-  }
+}
   
-  .card-container {
+.card-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }
+}
   
-  .card {
+.card {
     display: flex;
     flex-direction: column;
     border: 1px solid #e0e0e0;
@@ -55,48 +57,43 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-  }
+}
   
-  .card-header {
+.card-header {
     margin-bottom: 15px;
-  }
+}
   
-  .company-name {
+.company-name {
     font-size: 20px;
     color: #2c3e50;
     margin-bottom: 10px;
-  }
+}
   
-  .info {
+.info, .score-title {
     font-size: 14px;
     color: #7f8c8d;
     margin-bottom: 5px;
-  }
+}
   
-  .card-content {
+.card-content {
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
+}
   
-  .score-item {
+.score-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
+}
   
-  .score-title {
-    font-size: 14px;
-    color: #34495e;
-  }
-  
-  .pagination {
+.pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-  }
+}
   
-  .pagination-button {
+.pagination-button {
     padding: 8px 12px;
     margin: 0 4px;
     border-radius: 4px;
@@ -107,20 +104,20 @@
     transition: all 0.3s ease;
     font-size: 14px;
     font-weight: bold;
-  }
-  
-  .pagination-button.active {
+}
+
+.pagination-button.active {
     background-color: #3498db;
     color: #ffffff;
-  }
+}
   
-  .previous-button-container {
+.previous-button-container {
     display: flex;
     justify-content: center;
     margin-top: 30px;
-  }
+}
   
-  .previous-button {
+.previous-button {
     padding: 10px 20px;
     font-size: 16px;
     font-weight: 500;
@@ -128,34 +125,20 @@
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
-  }
-
-  .previous-button:hover {
+}
+  
+.previous-button:hover {
     transform: translateY(-2px);
     background-color: #e0e0e0;
-  }
+}
   
-  .loading {
+.loading, .error, .no-companies {
     text-align: center;
     font-size: 18px;
     margin-top: 20px;
-  }
+}
   
-  .error {
-    color: #e74c3c;
-    text-align: center;
-    font-size: 18px;
-    margin-top: 20px;
-  }
-  
-  .no-companies {
-    text-align: center;
-    font-size: 18px;
-    color: #7f8c8d;
-    margin-top: 20px;
-  }
-
-  .wgea-resource {
+.wgea-resource {
     margin-top: 30px; 
     padding: 15px;
     background-color: #ebf8ff; 
@@ -165,15 +148,14 @@
     color: #2c5282;
     text-align: center;
     border-radius: 6px;
-  }
+}
   
-  .wgea-link {
+.wgea-link {
     color: #3182ce; 
     text-decoration: none;
     font-weight: 600;
-  }
+}
   
-  .wgea-link:hover {
+.wgea-link:hover {
     text-decoration: underline;
-  }
-  
+}

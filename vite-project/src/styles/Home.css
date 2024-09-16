@@ -1,10 +1,7 @@
-@keyframes backgroundScroll {
-  0%, 100% {
-    background-image: url('/home3.jpg');
-  }
-  50% {
-    background-image: url('/home2.jpg');
-  }
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+.homecontainer, .home-subtitle, .start-button {
+  font-family: 'Montserrat', sans-serif;
 }
 
 .homecontainer {
@@ -14,28 +11,16 @@
   right: 0;
   bottom: 0;
   overflow: hidden;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
 }
 
 .background-container {
   height: 100vh;
+  background-image: url('/home1.gif');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  animation: backgroundScroll 20s infinite ease-in-out;
   display: flex;
   flex-direction: column;
-}
-
-.header, .footer {
-  width: 100%;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.9); 
-  padding: 20px 0;
-  color: #333;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
 }
 
 .home-content {
@@ -53,37 +38,32 @@
 
 .home-subtitle {
   font-size: 1.8rem;
-  font-weight: 300;
+  font-weight: 600;
   margin-bottom: 1rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   letter-spacing: 1px;
   max-width: 800px;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
 }
 
 .start-button {
-  padding: 12px 24px;  
-  font-size: 1rem;    
-  background-color: #3182ce;  
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #3182ce;
   color: white;
   border: none;
-  border-radius: 6px;  
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;  
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
+  transition: all 0.2s ease;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  display: block;
   margin: 24px auto 0;
-  width: auto; 
 }
 
 .start-button:hover {
-  background-color: #2b6cb0; 
-  transform: translateY(-2px); 
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background-color: #2b6cb0;
+  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
@@ -96,7 +76,6 @@
   }
 
   .start-button {
-    font-size: 1rem;
     padding: 10px 25px;
   }
 }

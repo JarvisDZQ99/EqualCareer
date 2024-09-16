@@ -1,65 +1,68 @@
-.journey-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .step-container {
-    text-align: center;
-    margin-bottom: 40px;
-    width: 100%;
-    max-width: 600px; 
-  }
-  
-  .step-container h2 {
-    margin-bottom: 20px;
-  }
-  
-  .step-container button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .step-container button:hover {
-    background-color: #45a049;
-  }
-  
-  .button-group {
-    display: flex;
-    justify-content: center; 
-    margin-bottom: 20px;     
-  }
-  
-  .submit-button {
-    display: block;
-    margin: 0 auto; 
-    margin-top: 20px; 
-  }
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
-  .step-container label {
-    display: block;
-    margin-bottom: 15px;
-  }
-  
-  .step-container input,
-  .step-container select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    box-sizing: border-box;
-  }
-  
+.journey-page, .content-container, .step-container, .step-container h2, .step-container button, 
+.step-container label, .step-container input, .step-container select {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.journey-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 20px;
+}
+
+.step-container {
+  text-align: center;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.step-container h2 {
+  margin-bottom: 20px;
+}
+
+.step-container button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.step-container button:hover {
+  background-color: #45a049;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.submit-button {
+  display: block;
+  margin: 20px auto 0;
+}
+
+.step-container label {
+  margin-bottom: 15px;
+}
+
+.step-container input, .step-container select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
