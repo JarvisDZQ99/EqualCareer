@@ -1,9 +1,12 @@
 import React from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  className?: string;
+}
+
+const Footer: React.FC<FooterProps> = ({ className = '' }) => {
   return (
-    <footer style={{
-      color: '#02426c',
+    <footer className={className} style={{
       padding: '1rem',
       textAlign: 'center',
       marginTop: 'auto',

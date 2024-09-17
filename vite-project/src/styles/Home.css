@@ -77,6 +77,21 @@ body, html {
   transform: translateY(-2px);
 }
 
+.home-header .logo h1,
+.home-header .nav-link {
+  color: white;
+}
+
+.home-header .nav-link:hover,
+.home-header .nav-link.active {
+  color: #f0f0f0;
+  border-bottom-color: #f0f0f0;
+}
+
+.home-footer {
+  color: white;
+}
+
 @media (max-width: 768px) {
   .home-subtitle {
     font-size: 1.4rem;
