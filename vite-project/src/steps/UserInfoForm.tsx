@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select, { SingleValue } from 'react-select';
-import '../styles/UserInfoForm.css';  
+import { useUserInfo } from '../steps/UserInfoStorage';
+import '../styles/UserInfoForm.css';
 
 interface UserInfoFormProps {
-  onNext: (userInfo: { gender: string; industry: string; region: string }) => void;
+  onNext: () => void;
 }
 
 interface Option {
@@ -12,9 +13,7 @@ interface Option {
 }
 
 const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
-  const [gender, setGender] = useState<Option | null>(null);
-  const [industry, setIndustry] = useState<Option | null>(null);
-  const [region, setRegion] = useState<Option | null>(null);
+  const { userInfo, setUserInfo } = useUserInfo();
 
   const genderOptions: Option[] = [
     { value: 'Female', label: 'Female' },
@@ -55,14 +54,16 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   ];
 
   const handleNext = () => {
-    if (gender && industry && region) {
-      onNext({
-        gender: gender.value,
-        industry: industry.value,
-        region: region.value
-      });
+    if (userInfo.gender && userInfo.industry && userInfo.region) {
+      onNext();
     } else {
       alert('Please fill out all fields');
+    }
+  };
+
+  const handleChange = (field: keyof typeof userInfo) => (selectedOption: SingleValue<Option>) => {
+    if (selectedOption) {
+      setUserInfo({ ...userInfo, [field]: selectedOption.value });
     }
   };
 
@@ -76,8 +77,8 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
       <label className="user-info-form-label">
         Gender
         <Select
-          value={gender}
-          onChange={(selectedOption: SingleValue<Option>) => setGender(selectedOption)}
+          value={genderOptions.find(option => option.value === userInfo.gender)}
+          onChange={handleChange('gender')}
           options={genderOptions}
           placeholder="Select Gender"
           className="user-info-form-select"
@@ -87,8 +88,8 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
       <label className="user-info-form-label">
         Industry
         <Select
-          value={industry}
-          onChange={(selectedOption: SingleValue<Option>) => setIndustry(selectedOption)}
+          value={industryOptions.find(option => option.value === userInfo.industry)}
+          onChange={handleChange('industry')}
           options={industryOptions}
           placeholder="Select or Search Industry"
           className="user-info-form-select"
@@ -98,8 +99,8 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
       <label className="user-info-form-label">
         Region
         <Select
-          value={region}
-          onChange={(selectedOption: SingleValue<Option>) => setRegion(selectedOption)}
+          value={australianStates.find(option => option.value === userInfo.region)}
+          onChange={handleChange('region')}
           options={australianStates}
           placeholder="Select Region"
           className="user-info-form-select"

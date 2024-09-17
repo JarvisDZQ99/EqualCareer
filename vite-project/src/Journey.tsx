@@ -1,4 +1,5 @@
 import React, { useState, ReactElement } from 'react';
+import { UserInfoProvider, useUserInfo } from './steps/UserInfoStorage';
 import UserInfoForm from './steps/UserInfoForm';
 import EmploymentChoice from './steps/EmploymentChoice';
 import JobSeekingResults from './steps/CompanySuggest';
@@ -8,22 +9,11 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import './styles/Journey.css';
 
-type UserData = {
-  gender: string;
-  industry: string;
-  region: string;
-};
-
-const Journey: React.FC = () => {
+const JourneyContent: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [userData, setUserData] = useState<UserData>({
-    gender: '',
-    industry: '',
-    region: ''
-  });
+  const { userInfo } = useUserInfo();
 
-  function handleUserInfoSubmit(userInfo: UserData) {
-    setUserData(userInfo);
+  function handleUserInfoSubmit() {
     setCurrentStep(1);
   }
 
@@ -36,7 +26,7 @@ const Journey: React.FC = () => {
         setCurrentStep(3);
         break;
       case 'UserInfoForm':  
-        setCurrentStep(1);
+        setCurrentStep(0);
         break;
       case 'LabourForceInfo':  
         setCurrentStep(4);
@@ -83,24 +73,24 @@ const Journey: React.FC = () => {
       key="employment-choice" 
       onNext={handleEmploymentChoice} 
       onPrevious={handlePrevious}
-      userData={{industry: userData.industry, region: userData.region}} 
+      userData={{industry: userInfo.industry, region: userInfo.region}} 
     />,
     <JobSeekingResults 
       key="job-seeking-results"
-      region={userData.region} 
-      industry={userData.industry} 
+      region={userInfo.region} 
+      industry={userInfo.industry} 
       onPrevious={handlePrevious}
     />,
     <PayGapVisual 
       key="pay-gap-visual"
-      industry={userData.industry}
-      region={userData.region}
+      industry={userInfo.industry}
+      region={userInfo.region}
       onPrevious={handlePrevious}
       onNext={handlePayGapNavigation}
     />,
     <LabourForceInfo
       key="labour-force-info"
-      selectedIndustry={userData.industry}
+      selectedIndustry={userInfo.industry}
       onLabourForceChoice={handleLabourForceChoice}
     />
   ];
@@ -113,6 +103,14 @@ const Journey: React.FC = () => {
       </div>
       <Footer />
     </div>
+  );
+};
+
+const Journey: React.FC = () => {
+  return (
+    <UserInfoProvider>
+      <JourneyContent />
+    </UserInfoProvider>
   );
 };
 
