@@ -5,7 +5,7 @@ body {
   color: #333333;
 }
 
-.paygap-container, .page-title, .chart-title, .summary-title, .summary-description, .button {
+.paygap-container, .page-title, .chart-title, .summary-title, .summary-description, .summary-recommendation, .button {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -112,8 +112,8 @@ body {
   color: #ef4444;
 }
 
-.summary-description {
-  font-size: 0.9em;
+.sudescriptionmmary- {
+  font-size: 1em;
   line-height: 1.5;
   color: #4a5568;
 }
@@ -198,6 +198,61 @@ body {
   text-decoration: underline;
 }
 
+.combined-summary-box {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.combined-summary-box .summary-title {
+  font-size: 1.4em;
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.salary-comparison {
+  background-color: #e8f4fd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.salary-comparison-title {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.salary-difference {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #3498db;
+}
+
+.salary-difference.positive {
+  color: #27ae60;
+}
+
+.salary-difference.negative {
+  color: #e74c3c;
+}
+
+.summary-recommendation {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #34495e;
+  margin-top: 20px;
+  border-radius: 4px;
+}
+
+
 @media (min-width: 768px) {
   .chart-content {
     flex-direction: row;
@@ -211,6 +266,10 @@ body {
 
   .summary-container {
     width: 30%;
+  }
+
+  .pay-gap-comparison {
+    justify-content: space-between;
   }
 }
 
@@ -233,5 +292,14 @@ body {
 
   .button {
     width: 100%;
+  }
+
+  .pay-gap-comparison {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pay-gap-comparison .pay-gap-info {
+    margin-bottom: 15px;
   }
 }
