@@ -22,6 +22,10 @@ interface Company {
   "Workplace overview": string; 
 }
 
+interface ScoreOptions {
+  [key: string]: boolean;
+}
+
 function isCompany(obj: unknown): obj is Company {
   return (
     typeof obj === 'object' &&
@@ -47,6 +51,13 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
   const [sortCriterion, setSortCriterion] = useState<keyof Company>('primary_abn_score');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [filterText, setFilterText] = useState('');
+  const [scoreOptions, setScoreOptions] = useState<ScoreOptions>({
+    "Total Score": true,
+    "Gender Equality Action": true,
+    "Employee Support": true,
+    "Flexible Work": true,
+    "Workplace Overview": true
+  });
   const companiesPerPage = 5;
 
   useEffect(() => {
@@ -124,6 +135,10 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
     }
   };
 
+  const handleScoreOptionChange = (option: string) => {
+    setScoreOptions(prev => ({ ...prev, [option]: !prev[option] }));
+  };
+
   const sortedCompanies = sortCompanies(filteredCompanies, sortCriterion, sortOrder);
   const totalPages = Math.ceil(sortedCompanies.length / companiesPerPage);
   const indexOfLastCompany = currentPage * companiesPerPage;
@@ -159,11 +174,28 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
     </div>
   );
 
-  const ScoreItem: React.FC<{ title: string; score: number }> = ({ title, score }) => (
-    <div className="score-item">
-      <span className="score-title">{title}:</span>
-      <StarRating score={score} />
+  const ScoreOptions: React.FC = () => (
+    <div className="score-options">
+      {Object.entries(scoreOptions).map(([option, checked]) => (
+        <label key={option} className="score-option">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={() => handleScoreOptionChange(option)}
+          />
+          {option}
+        </label>
+      ))}
     </div>
+  );
+
+  const ScoreItem: React.FC<{ title: string; score: number }> = ({ title, score }) => (
+    scoreOptions[title] && (
+      <div className="score-item">
+        <span className="score-title">{title}:</span>
+        <StarRating score={score} />
+      </div>
+    )
   );
 
   if (loading) {
@@ -191,6 +223,7 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
         />
       </div>
       <SortingSection />
+      <ScoreOptions />
       <div className="card-container">
         {currentCompanies.length > 0 ? (
           currentCompanies.map((company, index) => (
@@ -240,4 +273,3 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
 };
 
 export default JobSeekingResults;
-
