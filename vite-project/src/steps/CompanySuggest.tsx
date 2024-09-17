@@ -240,3 +240,4 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
 };
 
 export default JobSeekingResults;
+
