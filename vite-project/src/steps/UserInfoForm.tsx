@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Select, { SingleValue } from 'react-select';
 import { useUserInfo } from '../steps/UserInfoStorage';
 import '../styles/UserInfoForm.css';
@@ -15,10 +15,18 @@ interface Option {
 const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   const { userInfo, setUserInfo } = useUserInfo();
 
-  const genderOptions: Option[] = [
-    { value: 'Female', label: 'Female' },
-    { value: 'Male', label: 'Male' }
-  ];
+  useEffect(() => {
+    // Check if it's a fresh page load
+    const isFirstVisit = !sessionStorage.getItem('hasVisited');
+    
+    if (isFirstVisit) {
+      // Clear user info on first visit
+      setUserInfo({ gender: '', industry: '', region: '' });
+      // Set flag in sessionStorage
+      sessionStorage.setItem('hasVisited', 'true');
+    }
+    // If it's not a first visit, keep the existing userInfo
+  }, [setUserInfo]);
 
   const australianStates: Option[] = [
     { value: 'NSW', label: 'NSW' },
@@ -54,7 +62,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   ];
 
   const handleNext = () => {
-    if (userInfo.gender && userInfo.industry && userInfo.region) {
+    if (userInfo.industry && userInfo.region) {
       onNext();
     } else {
       alert('Please fill out all fields');
@@ -74,17 +82,6 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
         <span className="user-info-form-info-icon">ℹ</span>
         Your responses help us tailor our recommendations and insights to your specific situation. We take your privacy seriously and do not share your personal information.
       </div>
-      <label className="user-info-form-label">
-        Gender
-        <Select
-          value={genderOptions.find(option => option.value === userInfo.gender)}
-          onChange={handleChange('gender')}
-          options={genderOptions}
-          placeholder="Select Gender"
-          className="user-info-form-select"
-          classNamePrefix="react-select"
-        />
-      </label>
       <label className="user-info-form-label">
         Industry
         <Select
