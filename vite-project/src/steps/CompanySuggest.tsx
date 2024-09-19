@@ -216,7 +216,7 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
       <div className="filter-container">
         <input
           type="text"
-          placeholder="Filter by company name or industry"
+          placeholder="Filter by company name"
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
           className="filter-input"
