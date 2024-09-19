@@ -345,7 +345,7 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region, onPreviou
         <button className="button primary" onClick={() => onNext('show-labour-force')}>Show Labour Force Info</button>
       </div>
       <p className="wgea-resource">
-        For more information on gender equality in the workplace, visit the 
+        For resources and more information on gender equality in the workplace, visit the  
         <a href="https://www.wgea.gov.au" target="_blank" rel="noopener noreferrer" className="wgea-link"> Workplace Gender Equality Agency (WGEA)</a>.
       </p>
     </div>

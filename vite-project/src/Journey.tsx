@@ -2,6 +2,7 @@ import React, { useState, ReactElement } from 'react';
 import { UserInfoProvider, useUserInfo } from './steps/UserInfoStorage';
 import UserInfoForm from './steps/UserInfoForm';
 import EmploymentChoice from './steps/EmploymentChoice';
+import EmployedChoice from './steps/EmployedChoice';
 import JobSeekingResults from './steps/CompanySuggest';
 import LabourForceInfo from './steps/LabourForceInfo';
 import PayGapVisual from './steps/PayGapVisual'; 
@@ -22,14 +23,11 @@ const JourneyContent: React.FC = () => {
       case 'JobSeekingResults':
         setCurrentStep(2);
         break;
-      case 'PayGapVisual':
-        setCurrentStep(3);
+      case 'EmployedChoice':
+        setCurrentStep(5);
         break;
       case 'UserInfoForm':  
         setCurrentStep(0);
-        break;
-      case 'LabourForceInfo':  
-        setCurrentStep(4);
         break;
       case 'home':
         setCurrentStep(0);
@@ -39,20 +37,43 @@ const JourneyContent: React.FC = () => {
     }
   }
 
-  function handleLabourForceChoice(choice: 'home' | 'previous') {
-    if (choice === 'home') {
-      setCurrentStep(0);
-    } else if (choice === 'previous') {
-      setCurrentStep(3); 
+  function handleEmployedChoice(choice: string) {
+    switch(choice) {
+      case 'PayGapVisual':
+        setCurrentStep(3);
+        break;
+      case 'LabourForceInfo':
+        setCurrentStep(4);
+        break;
+      default:
+        console.error('Invalid choice:', choice);
+    }
+  }
+
+  function handleLabourForceChoice(choice: 'home' | 'previous' | 'payGap') {
+    switch(choice) {
+      case 'home':
+        setCurrentStep(0);
+        break;
+      case 'previous':
+        setCurrentStep(5);
+        break;
+      case 'payGap':
+        setCurrentStep(3);
+        break;
+      default:
+        console.error('Invalid choice:', choice);
     }
   }
 
   function handlePrevious() {
     setCurrentStep(prevStep => {
-      if (prevStep === 4) {  
-        return 3;  
+      if (prevStep === 5) { 
+        return 1; 
+      } else if (prevStep === 4) {  
+        return 5; 
       } else if (prevStep === 3) {  
-        return 1;  
+        return 5;
       }
       return Math.max(0, prevStep - 1); 
     });
@@ -92,6 +113,12 @@ const JourneyContent: React.FC = () => {
       key="labour-force-info"
       selectedIndustry={userInfo.industry}
       onLabourForceChoice={handleLabourForceChoice}
+    />,
+    <EmployedChoice
+      key="employed-choice"
+      onNext={handleEmployedChoice}
+      onPrevious={handlePrevious}
+      userData={{industry: userInfo.industry, region: userInfo.region}}
     />
   ];
 

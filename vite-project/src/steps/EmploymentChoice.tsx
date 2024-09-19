@@ -22,7 +22,7 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, onPrevious 
     if (choice) {
       switch(choice) {
         case 'Already Employed':
-          onNext('PayGapVisual');
+          onNext('EmployedChoice');
           break;
         case 'Job-Seeking':
           onNext('JobSeekingResults');
@@ -38,7 +38,7 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, onPrevious 
       <h1 className="title">Choose Your Path</h1>
       <div className="user-info-form-info-box">
         <span className="user-info-form-info-icon">ℹ</span>
-        Explore gender equality insights for your sector and region
+        Explore your personlised gender equality insights 
       </div>
 
       <div className="choice-container">

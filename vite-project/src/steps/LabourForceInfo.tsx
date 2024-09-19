@@ -15,7 +15,7 @@ interface LabourForceData {
 
 interface LabourForceInfoProps {
   selectedIndustry: string;
-  onLabourForceChoice: (choice: 'home' | 'previous') => void;
+  onLabourForceChoice: (choice: 'home' | 'previous' | 'payGap') => void;
 }
 
 const LabourForceInfo: React.FC<LabourForceInfoProps> = ({
@@ -186,9 +186,15 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({
         >
           Previous
         </button>
+        <button
+          className="labourbutton labourbutton-primary"
+          onClick={() => onLabourForceChoice('payGap')}
+        >
+          Show Pay Gap Analysis
+        </button>
       </div>
       <p className="wgea-resource">
-        For more information on gender equality in the workplace, visit the 
+        For resources and more information on gender equality in the workplace, visit the   
         <a href="https://www.wgea.gov.au" target="_blank" rel="noopener noreferrer" className="wgea-link"> Workplace Gender Equality Agency (WGEA)</a>.
       </p>
     </motion.div>

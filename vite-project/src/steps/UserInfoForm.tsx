@@ -16,16 +16,12 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   const { userInfo, setUserInfo } = useUserInfo();
 
   useEffect(() => {
-    // Check if it's a fresh page load
     const isFirstVisit = !sessionStorage.getItem('hasVisited');
     
     if (isFirstVisit) {
-      // Clear user info on first visit
       setUserInfo({ gender: '', industry: '', region: '' });
-      // Set flag in sessionStorage
       sessionStorage.setItem('hasVisited', 'true');
     }
-    // If it's not a first visit, keep the existing userInfo
   }, [setUserInfo]);
 
   const australianStates: Option[] = [
