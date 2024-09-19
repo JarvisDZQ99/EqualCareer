@@ -16,7 +16,7 @@ const Home: React.FC = () => {
       <div className="background-container">
         <Header className="home-header" />
         <div className="home-content">
-          <p className="home-subtitle">Empowering Your Career Path with Data-Driven Insights</p>
+          <p className="home-subtitle">Empowering Women in the Workplace with Data-Driven Career Insights</p>
           <button className="start-button" onClick={handleStartClick}>
             Let's Start Your Journey
           </button>
