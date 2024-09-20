@@ -1,35 +1,138 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
-.labour-force-info, .title, .labourbutton, .data-card h3, .typography-body2, .typography-h5 {
+* {
   font-family: 'Montserrat', sans-serif;
 }
 
-.labour-force-info {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+.industry-gender-distribution-card,
+.company-size-distribution {
+  background-color: #ffffff;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  margin-top: 30px;
+  overflow: hidden;
 }
 
-.title {
-  font-size: 2em;
-  color: #333;
+.men-women-section {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-bottom: 30px;
-  font-weight: 600;
 }
 
-.user-info-form-info-box {
-  background-color: #e6f2ff;
+.section-title {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: #333;
+  margin-bottom: 20px !important;
+  text-align: center;
+}
+
+.progress-bar-container {
+  height: 24px;
+  width: 100%;
+  max-width: 1000px; 
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 15px 0;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transition: width 1s ease-in-out;
+}
+
+.progress-bar-men {
+  background-color: #4a90e2;
+  left: 0;
+  z-index: 1;
+}
+
+.progress-bar-women {
+  background-color: #e15f81;
+  right: 0;
+  z-index: 2;
+}
+
+.typography-body2 {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 12px;
+}
+
+.info-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.info-card {
+  background-color: #f8f9fa;
   border-radius: 8px;
   padding: 15px;
-  margin-bottom: 30px;
-  font-size: 14px;
-  color: #0066cc;
+  text-align: center;
+  flex: 1 1 calc(33.333% - 20px);
+  min-width: 200px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }
 
-.user-info-form-info-icon {
-  font-weight: bold;
-  margin-right: 8px;
+.info-card-title {
+  color: #6c757d;
+  font-size: 0.9rem !important;
+  margin-bottom: 5px !important;
+  font-weight: 500 !important;
+}
+
+.info-card-value {
+  color: #4a72b0;
+  font-size: 1.8rem !important;
+  font-weight: 700 !important;
+}
+
+.chart-title {
+  color: #333;
+  font-weight: 600 !important;
+  font-size: 1.2rem !important;
+  margin-bottom: 20px !important;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: #e0e0e0;
+}
+
+.recharts-tooltip-label {
+  color: #333;
+}
+
+.gap-ratio-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0 30px;
+  position: relative;
+}
+
+.gap-ratio-title h6 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 20px;
+  padding: 10px 20px;
+}
+
+.title-accent {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #e0e6ed;
 }
 
 .labourbutton-container {
@@ -77,105 +180,14 @@
   background-color: #2980b9;
 }
 
-.data-card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 30px;
-}
-
-.data-card {
-  background-color: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.data-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.12);
-}
-
-.data-card h3 {
-  margin-top: 0;
-  color: #333;
-  font-weight: 600;
-}
-
-.men-women-card {
-  flex: 1 1 100%;
-  margin-bottom: 20px;
-}
-
-.small-card {
-  flex: 1 1 calc(33.333% - 20px);
-  min-width: 250px;
-}
-
-.progress-bar-container {
-  height: 24px;
-  width: 100%;
-  background-color: #f0f0f0;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-top: 15px;
-  position: relative;
-}
-
-.progress-bar-fill {
-  height: 100%;
-  position: absolute;
-  top: 0;
-  transition: width 1s ease-in-out;
-}
-
-.progress-bar-men {
-  background-color: #4a90e2;
-  left: 0;
-  z-index: 1;
-}
-
-.progress-bar-women {
-  background-color: #e15f81;
-  right: 0;
-  z-index: 2;
-}
-
-.typography-body2 {
-  font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.7);
-  margin-top: 12px;
-}
-
-.typography-h5 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
-  margin: 15px 0;
-}
-
-.wgea-resource {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 0.9em;
-  color: #666;
-}
-
-.wgea-link {
-  color: #0066cc;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.wgea-link:hover {
-  text-decoration: underline;
-}
-
-@media (max-width: 768px) {
-  .small-card {
+@media (max-width: 600px) {
+  .info-card,
+  .gap-ratio-card {
     flex: 1 1 100%;
+  }
+
+  .company-size-distribution {
+    padding: 15px;
   }
 
   .labourbutton-container {
