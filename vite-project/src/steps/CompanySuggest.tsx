@@ -31,7 +31,6 @@ function isCompany(obj: unknown): obj is Company {
     typeof obj === 'object' &&
     obj !== null &&
     'primary_employer_name' in obj &&
-    'primary_abn' in obj &&
     'primary_division_name' in obj &&
     'primary_abn_score' in obj &&
     typeof (obj as Company).primary_abn === 'number'
@@ -230,8 +229,6 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
             <div key={index} className="card">
               <div className="card-header">
                 <h3 className="company-name">{company.primary_employer_name}</h3>
-                <p className="info"><strong>ABN:</strong> {company.primary_abn}</p>
-                <p className="info"><strong>Industry:</strong> {company.primary_division_name}</p>
               </div>
               <div className="card-content">
                 <ScoreItem title="Total Score" score={company.primary_abn_score} />
