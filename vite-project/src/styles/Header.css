@@ -21,9 +21,8 @@
 .logo h1 {
   margin: 0;
   font-size: 1.8rem;
-  color: #3498db;
-  font-weight: 600;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color: #000000;
+  font-weight: 550;
 }
 
 .nav {
@@ -34,10 +33,9 @@
 .nav-link {
   margin-left: 1.5rem;
   text-decoration: none;
-  color: #3498db; 
+  color: #000000; 
   font-weight: 600;
   transition: all 0.3s ease;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .nav-link:hover {

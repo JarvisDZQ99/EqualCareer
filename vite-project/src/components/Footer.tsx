@@ -11,7 +11,8 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => {
       textAlign: 'center',
       marginTop: 'auto',
       fontFamily: "'Montserrat', sans-serif", 
-      color: "#3498db"
+      color: "#333",
+      fontWeight: 500,
     }}>
       <p style={{ margin: 0, fontSize: '0.9rem' }}>
         &copy; {new Date().getFullYear()} Equal Career. All rights reserved.
