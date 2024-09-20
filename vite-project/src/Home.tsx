@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './components/Header';
-import Footer from './components/Footer';
 import './styles/Home.css';
 
 const Home: React.FC = () => {
@@ -21,7 +20,11 @@ const Home: React.FC = () => {
             Let's Start Your Journey
           </button>
         </div>
-        <Footer className="home-footer" />
+        <footer className="home-footer">
+          <p style={{ margin: 0, fontSize: '0.9rem' }}>
+          &copy; {new Date().getFullYear()} Equal Career. All rights reserved.
+          </p>
+        </footer>
       </div>
     </div>
   );

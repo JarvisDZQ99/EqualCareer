@@ -90,7 +90,11 @@ body, html {
 
 .home-footer {
   color: white;
+  text-align: center;
+  margin-top: auto;
+  font-family: 'Montserrat', sans-serif; 
 }
+
 
 @media (max-width: 768px) {
   .home-subtitle {
