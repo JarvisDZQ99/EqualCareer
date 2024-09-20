@@ -207,7 +207,7 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
 
   return (
     <div className="container">
-      <h2 className="title">Recommended Companies - {region} ({industry})</h2>
+      <h2 className="title">Recommended Companies - {industry} in {region}</h2>
       <div className="user-info-form-info-box">
         <span className="user-info-form-info-icon">ℹ</span>
         Below are the recommended companies based on your selected region and industry. You can sort and filter the companies using the options below.
