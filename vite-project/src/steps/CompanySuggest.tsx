@@ -8,6 +8,7 @@ interface JobSeekingResultsProps {
   region: string;
   industry: string;
   onPrevious: () => void;
+  onSelectCompany: (company: Company) => void;
 }
 
 interface Company {
@@ -41,7 +42,7 @@ function areCompanies(arr: unknown[]): arr is Company[] {
   return Array.isArray(arr) && arr.every(isCompany);
 }
 
-const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry, onPrevious }) => {
+const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry, onPrevious, onSelectCompany }) => {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
@@ -138,6 +139,10 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
     setScoreOptions(prev => ({ ...prev, [option]: !prev[option] }));
   };
 
+  const handleCompanyClick = (company: Company) => {
+    onSelectCompany(company);
+  };
+
   const sortedCompanies = sortCompanies(filteredCompanies, sortCriterion, sortOrder);
   const totalPages = Math.ceil(sortedCompanies.length / companiesPerPage);
   const indexOfLastCompany = currentPage * companiesPerPage;
@@ -226,7 +231,7 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
       <div className="card-container">
         {currentCompanies.length > 0 ? (
           currentCompanies.map((company, index) => (
-            <div key={index} className="card">
+            <div key={index} className="card" onClick={() => handleCompanyClick(company)}>
               <div className="card-header">
                 <h3 className="company-name">{company.primary_employer_name}</h3>
               </div>
