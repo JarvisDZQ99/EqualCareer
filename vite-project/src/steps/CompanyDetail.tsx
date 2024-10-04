@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import StarRating from '../components/StarRating';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from 'recharts';
+import * as Tabs from '@radix-ui/react-tabs';
 import '../styles/CompanyDetail.css';
 
 interface Company {
   primary_abn: number;
   primary_employer_name: string;
   primary_division_name: string;
-  primary_abn_score: number;
   State: string;
-  "Action on gender equality": string;
-  "Employee support": string;
-  "Flexible work": string;
-  "Workplace overview": string;
 }
 
 interface CompanyDetails extends Company {
@@ -113,6 +109,170 @@ interface CompanyDetailProps {
   onBack: () => void;
 }
 
+const WorkforceComposition: React.FC<{ companyDetails: CompanyDetails }> = ({ companyDetails }) => {
+  const managementData = [
+    { position: 'CEOs', men: companyDetails.manager_CEOs_men || 0, women: companyDetails.manager_CEOs_women || 0 },
+    { position: 'Heads of Business', men: companyDetails.manager_heads_of_business_men || 0, women: companyDetails.manager_heads_of_business_women || 0 },
+    { position: 'Key Management', men: companyDetails.manager_key_mgmt_personnel_men || 0, women: companyDetails.manager_key_mgmt_personnel_women || 0 },
+    { position: 'Other Executives', men: companyDetails.manager_other_exec_men || 0, women: companyDetails.manager_other_exec_women || 0 },
+    { position: 'Senior Management', men: companyDetails.manager_senior_mgmt_men || 0, women: companyDetails.manager_senior_mgmt_women || 0 },
+  ];
+
+  const nonManagementData = [
+    { position: 'Clerical', men: companyDetails.non_manager_clerical_men || 0, women: companyDetails.non_manager_clerical_women || 0 },
+    { position: 'Service', men: companyDetails.non_manager_service_men || 0, women: companyDetails.non_manager_service_women || 0 },
+    { position: 'Labourers', men: companyDetails.non_manager_labourers_men || 0, women: companyDetails.non_manager_labourers_women || 0 },
+    { position: 'Professionals', men: companyDetails.non_manager_professionals_men || 0, women: companyDetails.non_manager_professionals_women || 0 },
+    { position: 'Technicians', men: companyDetails.non_manager_technicians_men || 0, women: companyDetails.non_manager_technicians_women || 0 },
+  ];
+
+  const renderChart = (data: any[]) => (
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={data} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis type="number" />
+        <YAxis 
+          dataKey="position" 
+          type="category" 
+          width={150}
+          tick={{ fontSize: 12 }}
+          tickLine={{ stroke: 'none' }}
+          axisLine={{ stroke: 'none' }}
+        />
+        <Tooltip 
+          contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
+          itemStyle={{ color: '#333' }}
+        />
+        <Legend 
+          verticalAlign="top" 
+          height={36}
+          iconType="circle"
+        />
+        <Bar dataKey="men" fill="#4a90e2" name="Men" radius={[0, 4, 4, 0]} />
+        <Bar dataKey="women" fill="#e15f81" name="Women" radius={[0, 4, 4, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+
+  return (
+    <div className="workforce-composition">
+      <h2 className="cd-section-title">Workforce Composition</h2>
+      <Tabs.Root className="tabs-root" defaultValue="management">
+        <Tabs.List className="tabs-list">
+          <Tabs.Trigger className="tabs-trigger" value="management">Management</Tabs.Trigger>
+          <Tabs.Trigger className="tabs-trigger" value="non-management">Non-Management</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content className="tabs-content" value="management">
+          {renderChart(managementData)}
+        </Tabs.Content>
+        <Tabs.Content className="tabs-content" value="non-management">
+          {renderChart(nonManagementData)}
+        </Tabs.Content>
+      </Tabs.Root>
+      <div className="mt-4">
+        <h3 className="text-xl font-semibold mb-2">Total Employees</h3>
+        <p>Managers: Men: {companyDetails.manager_men || 'N/A'}, Women: {companyDetails.manager_women || 'N/A'}</p>
+        <p>Non-Managers: Men: {companyDetails.non_manager_men || 'N/A'}, Women: {companyDetails.non_manager_women || 'N/A'}</p>
+      </div>
+    </div>
+  );
+};
+
+const EmploymentMetrics: React.FC<{ companyDetails: CompanyDetails }> = ({ companyDetails }) => {
+    const [selectedMetric, setSelectedMetric] = useState('ceased_paid_leave');
+
+    const calculateRatio = (men: number, women: number) => {
+      const total = men + women;
+      if (total === 0) return { men: 0, women: 0 };
+      return {
+        men: Math.round((men / total) * 100),
+        women: Math.round((women / total) * 100)
+      };
+    };
+  
+    const metricData = {
+      ceased_paid_leave: [
+        { level: 'Middle Management', ...calculateRatio(companyDetails.ceased_paid_leave_mid_mgmt_men ?? 0, companyDetails.ceased_paid_leave_mid_mgmt_women ?? 0) },
+        { level: 'Non-Management', ...calculateRatio(companyDetails.ceased_paid_leave_non_mgmt_men ?? 0, companyDetails.ceased_paid_leave_non_mgmt_women ?? 0) },
+        { level: 'Top Management', ...calculateRatio(companyDetails.ceased_paid_leave_top_mgmt_men ?? 0, companyDetails.ceased_paid_leave_top_mgmt_women ?? 0) },
+      ],
+      appointments: [
+        { level: 'Middle Management', ...calculateRatio(companyDetails.ext_appoint_mid_mgmt_men ?? 0, companyDetails.ext_appoint_mid_mgmt_women ?? 0), ...calculateRatio(companyDetails.internal_appoint_mid_mgmt_men ?? 0, companyDetails.internal_appoint_mid_mgmt_women ?? 0) },
+        { level: 'Non-Management', ...calculateRatio(companyDetails.ext_appoint_non_mgmt_men ?? 0, companyDetails.ext_appoint_non_mgmt_women ?? 0), ...calculateRatio(companyDetails.internal_appoint_non_mgmt_men ?? 0, companyDetails.internal_appoint_non_mgmt_women ?? 0) },
+        { level: 'Top Management', ...calculateRatio(companyDetails.ext_appoint_top_mgmt_men ?? 0, companyDetails.ext_appoint_top_mgmt_women ?? 0), ...calculateRatio(companyDetails.internal_appoint_top_mgmt_men ?? 0, companyDetails.internal_appoint_top_mgmt_women ?? 0) },
+      ],
+      carers: [
+        { level: 'Middle Management', ...calculateRatio(companyDetails.primary_carers_mid_mgmt_men ?? 0, companyDetails.primary_carers_mid_mgmt_women ?? 0), ...calculateRatio(companyDetails.sec_carers_mid_mgmt_men ?? 0, companyDetails.sec_carers_mid_mgmt_women ?? 0) },
+        { level: 'Non-Management', ...calculateRatio(companyDetails.primary_carers_non_mgmt_men ?? 0, companyDetails.primary_carers_non_mgmt_women ?? 0), ...calculateRatio(companyDetails.sec_carers_non_mgmt_men ?? 0, companyDetails.sec_carers_non_mgmt_women ?? 0) },
+        { level: 'Top Management', ...calculateRatio(companyDetails.primary_carers_top_mgmt_men ?? 0, companyDetails.primary_carers_top_mgmt_women ?? 0), ...calculateRatio(companyDetails.sec_carers_top_mgmt_men ?? 0, companyDetails.sec_carers_top_mgmt_women ?? 0) },
+      ],
+      promotions: [
+        { level: 'Middle Management', ...calculateRatio(companyDetails.promotions_mid_mgmt_men ?? 0, companyDetails.promotions_mid_mgmt_women ?? 0) },
+        { level: 'Non-Management', ...calculateRatio(companyDetails.promotions_non_mgmt_men ?? 0, companyDetails.promotions_non_mgmt_women ?? 0) },
+        { level: 'Top Management', ...calculateRatio(companyDetails.promotions_top_mgmt_men ?? 0, companyDetails.promotions_top_mgmt_women ?? 0) },
+      ],
+      resignations: [
+        { level: 'Middle Management', ...calculateRatio(companyDetails.resignations_mid_mgmt_men ?? 0, companyDetails.resignations_mid_mgmt_women ?? 0) },
+        { level: 'Non-Management', ...calculateRatio(companyDetails.resignations_non_mgmt_men ?? 0, companyDetails.resignations_non_mgmt_women ?? 0) },
+        { level: 'Top Management', ...calculateRatio(companyDetails.resignations_top_mgmt_men ?? 0, companyDetails.resignations_top_mgmt_women ?? 0) },
+      ],
+    };
+  
+    const renderChart = () => {
+      const data = metricData[selectedMetric as keyof typeof metricData];
+      return (
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart
+            data={data}
+            layout="vertical"
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis type="number" domain={[0, 100]} />
+            <YAxis 
+              dataKey="level" 
+              type="category" 
+              width={150}
+              tick={{ fontSize: 12 }}
+              tickLine={{ stroke: 'none' }}
+              axisLine={{ stroke: 'none' }}
+            />
+            <Tooltip 
+              formatter={(value: number) => `${value}%`}
+              contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
+              itemStyle={{ color: '#333' }}
+            />
+            <Legend 
+              verticalAlign="top" 
+              height={36}
+              iconType="circle"
+            />
+            <Bar dataKey="men" fill="#4a90e2" name="Men %" radius={[0, 4, 4, 0]} />
+            <Bar dataKey="women" fill="#e15f81" name="Women %" radius={[0, 4, 4, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      );
+    };
+  
+    return (
+      <div className="employment-metrics">
+        <h2 className="cd-section-title">Employment Metrics</h2>
+        <Tabs.Root className="tabs-root" defaultValue="ceased_paid_leave" onValueChange={setSelectedMetric}>
+          <Tabs.List className="tabs-list">
+            <Tabs.Trigger className="tabs-trigger" value="ceased_paid_leave">Ceased Paid Leave</Tabs.Trigger>
+            <Tabs.Trigger className="tabs-trigger" value="appointments">Appointments</Tabs.Trigger>
+            <Tabs.Trigger className="tabs-trigger" value="carers">Carers</Tabs.Trigger>
+            <Tabs.Trigger className="tabs-trigger" value="promotions">Promotions</Tabs.Trigger>
+            <Tabs.Trigger className="tabs-trigger" value="resignations">Resignations</Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content className="tabs-content" value={selectedMetric}>
+            {renderChart()}
+          </Tabs.Content>
+        </Tabs.Root>
+      </div>
+    );
+  };
+
 const CompanyDetail: React.FC<CompanyDetailProps> = ({ company, onBack }) => {
   const [companyDetails, setCompanyDetails] = useState<CompanyDetails | null>(null);
   const [loading, setLoading] = useState(true);
@@ -155,7 +315,6 @@ const CompanyDetail: React.FC<CompanyDetailProps> = ({ company, onBack }) => {
 
   return (
     <div className="cd-container">
-      <button onClick={onBack} className="cd-back-button">Back to Results</button>
       <h1 className="cd-title">{companyDetails.primary_employer_name}</h1>
       <div className="cd-info-box">
         <p className="cd-info-item"><span className="cd-info-label">Industry:</span> {companyDetails.primary_division_name}</p>
@@ -164,98 +323,12 @@ const CompanyDetail: React.FC<CompanyDetailProps> = ({ company, onBack }) => {
         <p className="cd-info-item"><span className="cd-info-label">Group Size:</span> {companyDetails.submission_group_size || 'N/A'}</p>
       </div>
       <div className="cd-section">
-        <h2 className="cd-section-title">Gender Equality Scores</h2>
-        <div className="cd-score-item">
-          <span className="cd-score-label">Total Score:</span>
-          <StarRating score={companyDetails.primary_abn_score} />
-        </div>
-        <div className="cd-score-item">
-          <span className="cd-score-label">Gender Equality Action:</span>
-          <StarRating score={Number(companyDetails["Action on gender equality"])} />
-        </div>
-        <div className="cd-score-item">
-          <span className="cd-score-label">Employee Support:</span>
-          <StarRating score={Number(companyDetails["Employee support"])} />
-        </div>
-        <div className="cd-score-item">
-          <span className="cd-score-label">Flexible Work:</span>
-          <StarRating score={Number(companyDetails["Flexible work"])} />
-        </div>
-        <div className="cd-score-item">
-          <span className="cd-score-label">Workplace Overview:</span>
-          <StarRating score={Number(companyDetails["Workplace overview"])} />
-        </div>
+        <WorkforceComposition companyDetails={companyDetails} />
       </div>
       <div className="cd-section">
-        <h2 className="cd-section-title">Workforce Composition</h2>
-        <h3 className="cd-subsection-title">Management</h3>
-        <p className="cd-info-item"><span className="cd-info-label">CEOs:</span> Men: {companyDetails.manager_CEOs_men || 'N/A'}, Women: {companyDetails.manager_CEOs_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Heads of Business:</span> Men: {companyDetails.manager_heads_of_business_men || 'N/A'}, Women: {companyDetails.manager_heads_of_business_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Key Management Personnel:</span> Men: {companyDetails.manager_key_mgmt_personnel_men || 'N/A'}, Women: {companyDetails.manager_key_mgmt_personnel_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Other Executives:</span> Men: {companyDetails.manager_other_exec_men || 'N/A'}, Women: {companyDetails.manager_other_exec_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Other Management:</span> Men: {companyDetails.manager_other_mgmt_men || 'N/A'}, Women: {companyDetails.manager_other_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Overseas Management:</span> Men: {companyDetails.manager_overseas_mgmt_men || 'N/A'}, Women: {companyDetails.manager_overseas_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Senior Management:</span> Men: {companyDetails.manager_senior_mgmt_men || 'N/A'}, Women: {companyDetails.manager_senior_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Total Managers:</span> Men: {companyDetails.manager_men || 'N/A'}, Women: {companyDetails.manager_women || 'N/A'}</p>
-        
-        <h3 className="cd-subsection-title">Non-Management</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Clerical:</span> Men: {companyDetails.non_manager_clerical_men || 'N/A'}, Women: {companyDetails.non_manager_clerical_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Service:</span> Men: {companyDetails.non_manager_service_men || 'N/A'}, Women: {companyDetails.non_manager_service_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Labourers:</span> Men: {companyDetails.non_manager_labourers_men || 'N/A'}, Women: {companyDetails.non_manager_labourers_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Operators:</span> Men: {companyDetails.non_manager_operators_men || 'N/A'}, Women: {companyDetails.non_manager_operators_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Other:</span> Men: {companyDetails.non_manager_other_men || 'N/A'}, Women: {companyDetails.non_manager_other_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Professionals:</span> Men: {companyDetails.non_manager_professionals_men || 'N/A'}, Women: {companyDetails.non_manager_professionals_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Sales:</span> Men: {companyDetails.non_manager_sales_men || 'N/A'}, Women: {companyDetails.non_manager_sales_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Technicians:</span> Men: {companyDetails.non_manager_technicians_men || 'N/A'}, Women: {companyDetails.non_manager_technicians_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Total Non-Managers:</span> Men: {companyDetails.non_manager_men || 'N/A'}, Women: {companyDetails.non_manager_women || 'N/A'}</p>
+        <EmploymentMetrics companyDetails={companyDetails} />
       </div>
-      <div className="cd-section">
-        <h2 className="cd-section-title">Employment Metrics</h2>
-        <h3 className="cd-subsection-title">Ceased Paid Leave</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Middle Management:</span> Men: {companyDetails.ceased_paid_leave_mid_mgmt_men || 'N/A'}, Women: {companyDetails.ceased_paid_leave_mid_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Non-Management:</span> Men: {companyDetails.ceased_paid_leave_non_mgmt_men || 'N/A'}, Women: {companyDetails.ceased_paid_leave_non_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Top Management:</span> Men: {companyDetails.ceased_paid_leave_top_mgmt_men || 'N/A'}, Women: {companyDetails.ceased_paid_leave_top_mgmt_women || 'N/A'}</p>
-        
-        <h3 className="cd-subsection-title">External Appointments</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Middle Management:</span> Men: {companyDetails.ext_appoint_mid_mgmt_men || 'N/A'}, Women: {companyDetails.ext_appoint_mid_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Non-Management:</span> Men: {companyDetails.ext_appoint_non_mgmt_men || 'N/A'}, Women: {companyDetails.ext_appoint_non_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Top Management:</span> Men: {companyDetails.ext_appoint_top_mgmt_men || 'N/A'}, Women: {companyDetails.ext_appoint_top_mgmt_women || 'N/A'}</p>
-        
-        <h3 className="cd-subsection-title">Internal Appointments</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Middle Management:</span> Men: {companyDetails.internal_appoint_mid_mgmt_men || 'N/A'}, Women: {companyDetails.internal_appoint_mid_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Non-Management:</span> Men: {companyDetails.internal_appoint_non_mgmt_men || 'N/A'}, Women: {companyDetails.internal_appoint_non_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Top Management:</span> Men: {companyDetails.internal_appoint_top_mgmt_men || 'N/A'}, Women: {companyDetails.internal_appoint_top_mgmt_women || 'N/A'}</p>
-        
-        <h3 className="cd-subsection-title">Primary Carers</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Middle Management:</span> Men: {companyDetails.primary_carers_mid_mgmt_men || 'N/A'}, Women: {companyDetails.primary_carers_mid_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Non-Management:</span> Men: {companyDetails.primary_carers_non_mgmt_men || 'N/A'}, Women: {companyDetails.primary_carers_non_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Top Management:</span> Men: {companyDetails.primary_carers_top_mgmt_men || 'N/A'}, Women: {companyDetails.primary_carers_top_mgmt_women || 'N/A'}</p>
-        
-        <h3 className="cd-subsection-title">Promotions</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Middle Management:</span> Men: {companyDetails.promotions_mid_mgmt_men || 'N/A'}, Women: {companyDetails.promotions_mid_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Non-Management:</span> Men: {companyDetails.promotions_non_mgmt_men || 'N/A'}, Women: {companyDetails.promotions_non_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Top Management:</span> Men: {companyDetails.promotions_top_mgmt_men || 'N/A'}, Women: {companyDetails.promotions_top_mgmt_women || 'N/A'}</p>
-        
-        <h3 className="cd-subsection-title">Resignations</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Middle Management:</span> Men: {companyDetails.resignations_mid_mgmt_men || 'N/A'}, Women: {companyDetails.resignations_mid_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Non-Management:</span> Men: {companyDetails.resignations_non_mgmt_men || 'N/A'}, Women: {companyDetails.resignations_non_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Top Management:</span> Men: {companyDetails.resignations_top_mgmt_men || 'N/A'}, Women: {companyDetails.resignations_top_mgmt_women || 'N/A'}</p>
-        
-        <h3 className="cd-subsection-title">Secondary Carers</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Middle Management:</span> Men: {companyDetails.sec_carers_mid_mgmt_men || 'N/A'}, Women: {companyDetails.sec_carers_mid_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Non-Management:</span> Men: {companyDetails.sec_carers_non_mgmt_men || 'N/A'}, Women: {companyDetails.sec_carers_non_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Top Management:</span> Men: {companyDetails.sec_carers_top_mgmt_men || 'N/A'}, Women: {companyDetails.sec_carers_top_mgmt_women || 'N/A'}</p>
-        
-        <h3 className="cd-subsection-title">Total Appointments (Excluding Promotions)</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Middle Management:</span> Men: {companyDetails.total_appoint_excl_prom_mid_mgmt_men || 'N/A'}, Women: {companyDetails.total_appoint_excl_prom_mid_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Non-Management:</span> Men: {companyDetails.total_appoint_excl_prom_non_mgmt_men || 'N/A'}, Women: {companyDetails.total_appoint_excl_prom_non_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Top Management:</span> Men: {companyDetails.total_appoint_excl_prom_top_mgmt_men || 'N/A'}, Women: {companyDetails.total_appoint_excl_prom_top_mgmt_women || 'N/A'}</p>
-        
-        <h3 className="cd-subsection-title">Total Appointments (Including Promotions)</h3>
-        <p className="cd-info-item"><span className="cd-info-label">Middle Management:</span> Men: {companyDetails.total_appoint_incl_prom_mid_mgmt_men || 'N/A'}, Women: {companyDetails.total_appoint_incl_prom_mid_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Non-Management:</span> Men: {companyDetails.total_appoint_incl_prom_non_mgmt_men || 'N/A'}, Women: {companyDetails.total_appoint_incl_prom_non_mgmt_women || 'N/A'}</p>
-        <p className="cd-info-item"><span className="cd-info-label">Top Management:</span> Men: {companyDetails.total_appoint_incl_prom_top_mgmt_men || 'N/A'}, Women: {companyDetails.total_appoint_incl_prom_top_mgmt_women || 'N/A'}</p>
-      </div>
+      <button onClick={onBack} className="cd-back-button">Back to Results</button>
       <p className="cd-wgea-resource">
         For more information on gender equality in the workplace, visit the 
         <a href="https://www.wgea.gov.au" target="_blank" rel="noopener noreferrer" className="cd-wgea-link"> Workplace Gender Equality Agency (WGEA)</a>.
