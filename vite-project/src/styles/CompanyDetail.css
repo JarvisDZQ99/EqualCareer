@@ -107,13 +107,10 @@ body {
   background-color: #ffffff;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .tabs-list {
   display: flex;
-  background-color: #f1f5f9;
-  border-bottom: 1px solid #e0e0e0;
 }
 
 .tabs-trigger {
@@ -128,9 +125,7 @@ body {
 }
 
 .tabs-trigger[data-state='active'] {
-  background-color: #ffffff;
-  color: #333333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #4559a1;
 }
 
 .tabs-content {
@@ -160,6 +155,57 @@ body {
 .cd-wgea-link:hover {
   color: #2980b9;
   text-decoration: underline;
+}
+
+.total-employees {
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.total-employees-title {
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+.employee-group {
+  margin-bottom: 1rem;
+}
+
+.employee-group-title {
+  font-size: 1.1rem;
+  color: #34495e;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.employee-numbers {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.employee-gender {
+  flex-basis: 48%;
+  background-color: #ffffff;
+  padding: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+.employee-gender strong {
+  color: #a359bc;
+}
+
+@media (max-width: 768px) {
+  .employee-gender {
+    flex-basis: 100%;
+  }
 }
 
 @keyframes cd-spin {

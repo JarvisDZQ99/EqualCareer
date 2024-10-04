@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from 'recharts';
 import * as Tabs from '@radix-ui/react-tabs';
@@ -169,26 +169,38 @@ const WorkforceComposition: React.FC<{ companyDetails: CompanyDetails }> = ({ co
           {renderChart(nonManagementData)}
         </Tabs.Content>
       </Tabs.Root>
-      <div className="mt-4">
-        <h3 className="text-xl font-semibold mb-2">Total Employees</h3>
-        <p>Managers: Men: {companyDetails.manager_men || 'N/A'}, Women: {companyDetails.manager_women || 'N/A'}</p>
-        <p>Non-Managers: Men: {companyDetails.non_manager_men || 'N/A'}, Women: {companyDetails.non_manager_women || 'N/A'}</p>
+      <div className="total-employees">
+        <h3 className="total-employees-title">Total Employees</h3>
+        <div className="employee-group">
+          <h4 className="employee-group-title">Managers</h4>
+          <div className="employee-numbers">
+            <span className="employee-gender">Men: <strong>{companyDetails.manager_men || 'N/A'}</strong></span>
+            <span className="employee-gender">Women: <strong>{companyDetails.manager_women || 'N/A'}</strong></span>
+          </div>
+        </div>
+        <div className="employee-group">
+          <h4 className="employee-group-title">Non-Managers</h4>
+          <div className="employee-numbers">
+            <span className="employee-gender">Men: <strong>{companyDetails.non_manager_men || 'N/A'}</strong></span>
+            <span className="employee-gender">Women: <strong>{companyDetails.non_manager_women || 'N/A'}</strong></span>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 const EmploymentMetrics: React.FC<{ companyDetails: CompanyDetails }> = ({ companyDetails }) => {
-    const [selectedMetric, setSelectedMetric] = useState('ceased_paid_leave');
+  const [selectedMetric, setSelectedMetric] = useState('ceased_paid_leave');
 
-    const calculateRatio = (men: number, women: number) => {
-      const total = men + women;
-      if (total === 0) return { men: 0, women: 0 };
-      return {
-        men: Math.round((men / total) * 100),
-        women: Math.round((women / total) * 100)
-      };
+  const calculateRatio = (men: number, women: number) => {
+    const total = men + women;
+    if (total === 0) return { men: 0, women: 0 };
+    return {
+      men: Math.round((men / total) * 100),
+      women: Math.round((women / total) * 100)
     };
+  };
   
     const metricData = {
       ceased_paid_leave: [
@@ -254,16 +266,21 @@ const EmploymentMetrics: React.FC<{ companyDetails: CompanyDetails }> = ({ compa
       );
     };
   
+    const handleTabClick = useCallback((value: string) => (e: React.MouseEvent) => {
+      e.preventDefault();
+      setSelectedMetric(value);
+    }, []);
+  
     return (
       <div className="employment-metrics">
         <h2 className="cd-section-title">Employment Metrics</h2>
-        <Tabs.Root className="tabs-root" defaultValue="ceased_paid_leave" onValueChange={setSelectedMetric}>
+        <Tabs.Root className="tabs-root" value={selectedMetric}>
           <Tabs.List className="tabs-list">
-            <Tabs.Trigger className="tabs-trigger" value="ceased_paid_leave">Ceased Paid Leave</Tabs.Trigger>
-            <Tabs.Trigger className="tabs-trigger" value="appointments">Appointments</Tabs.Trigger>
-            <Tabs.Trigger className="tabs-trigger" value="carers">Carers</Tabs.Trigger>
-            <Tabs.Trigger className="tabs-trigger" value="promotions">Promotions</Tabs.Trigger>
-            <Tabs.Trigger className="tabs-trigger" value="resignations">Resignations</Tabs.Trigger>
+            <Tabs.Trigger className="tabs-trigger" value="ceased_paid_leave" onClick={handleTabClick('ceased_paid_leave')}>Ceased Paid Leave</Tabs.Trigger>
+            <Tabs.Trigger className="tabs-trigger" value="appointments" onClick={handleTabClick('appointments')}>Appointments</Tabs.Trigger>
+            <Tabs.Trigger className="tabs-trigger" value="carers" onClick={handleTabClick('carers')}>Carers</Tabs.Trigger>
+            <Tabs.Trigger className="tabs-trigger" value="promotions" onClick={handleTabClick('promotions')}>Promotions</Tabs.Trigger>
+            <Tabs.Trigger className="tabs-trigger" value="resignations" onClick={handleTabClick('resignations')}>Resignations</Tabs.Trigger>
           </Tabs.List>
           <Tabs.Content className="tabs-content" value={selectedMetric}>
             {renderChart()}
@@ -328,7 +345,7 @@ const CompanyDetail: React.FC<CompanyDetailProps> = ({ company, onBack }) => {
       <div className="cd-section">
         <EmploymentMetrics companyDetails={companyDetails} />
       </div>
-      <button onClick={onBack} className="cd-back-button">Back to Results</button>
+      <button onClick={onBack} className="cd-back-button">Previous</button>
       <p className="cd-wgea-resource">
         For more information on gender equality in the workplace, visit the 
         <a href="https://www.wgea.gov.au" target="_blank" rel="noopener noreferrer" className="cd-wgea-link"> Workplace Gender Equality Agency (WGEA)</a>.
