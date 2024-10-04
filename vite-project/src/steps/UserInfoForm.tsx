@@ -87,6 +87,24 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
           placeholder="Select or Search Industry"
           className="user-info-form-select"
           classNamePrefix="react-select"
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              borderColor: '#9966cc',
+              '&:hover': {
+                borderColor: '#9400d3'
+              }
+            }),
+            option: (provided, state) => ({
+              ...provided,
+              backgroundColor: state.isSelected ? '#9966cc' : state.isFocused ? '#f3e9ff' : undefined,
+              color: state.isSelected ? '#ffffff' : '#9966cc',
+              '&:hover': {
+                backgroundColor: '#9400d3',
+                color: '#ffffff'
+              }
+            })
+          }}
         />
       </label>
       <label className="user-info-form-label">
@@ -98,6 +116,24 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
           placeholder="Select Region"
           className="user-info-form-select"
           classNamePrefix="react-select"
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              borderColor: '#9966cc',
+              '&:hover': {
+                borderColor: '#9400d3'
+              }
+            }),
+            option: (provided, state) => ({
+              ...provided,
+              backgroundColor: state.isSelected ? '#9966cc' : state.isFocused ? '#f3e9ff' : undefined,
+              color: state.isSelected ? '#ffffff' : '#9966cc',
+              '&:hover': {
+                backgroundColor: '#9400d3',
+                color: '#ffffff'
+              }
+            })
+          }}
         />
       </label>
       <button
@@ -111,4 +147,3 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
 };
 
 export default UserInfoForm;
-

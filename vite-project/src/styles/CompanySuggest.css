@@ -26,22 +26,6 @@ body {
   font-weight: 600;
 }
 
-.user-info-form-info-box {
-  background-color: #e3f2fd;
-  border-left: 4px solid #3498db;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #2c3e50;
-}
-
-.user-info-form-info-icon {
-  font-weight: bold;
-  margin-right: 10px;
-  color: #3498db;
-}
-
 .filter-container {
   margin-bottom: 20px;
 }
@@ -57,8 +41,8 @@ body {
 
 .filter-input:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  border-color: #9966cc;
+  box-shadow: 0 0 0 3px rgba(153, 102, 204, 0.2);
 }
 
 .sorting-container {
@@ -92,14 +76,14 @@ body {
 
 .select:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  border-color: #9966cc;
+  box-shadow: 0 0 0 3px rgba(153, 102, 204, 0.2);
 }
 
 .sort-order-button {
   padding: 12px 20px;
   font-size: 16px;
-  background-color: #3498db;
+  background-color: #9966cc;
   color: white;
   border: none;
   border-radius: 6px;
@@ -112,7 +96,7 @@ body {
 }
 
 .sort-order-button:hover {
-  background-color: #2980b9;
+  background-color: #9400d3;
 }
 
 .sort-order-button svg {
@@ -146,7 +130,7 @@ body {
 }
 
 .score-option:hover {
-  color: #3498db;
+  color: #9966cc;
 }
 
 .card-container {
@@ -228,9 +212,9 @@ body {
   padding: 10px 15px;
   margin: 0 5px;
   border-radius: 6px;
-  border: 1px solid #3498db;
+  border: 1px solid #9966cc;
   background: #ffffff;
-  color: #3498db;
+  color: #9966cc;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
@@ -238,7 +222,7 @@ body {
 }
 
 .pagination-button.active, .pagination-button:hover {
-  background-color: #3498db;
+  background-color: #9966cc;
   color: #ffffff;
 }
 
@@ -254,14 +238,14 @@ body {
   font-weight: 600;
   border: none;
   border-radius: 6px;
-  background-color: #3498db;
+  background-color: #9966cc;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .previous-button:hover {
-  background-color: #2980b9;
+  background-color: #9400d3;
   transform: translateY(-2px);
 }
 
@@ -278,9 +262,9 @@ body {
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 3px solid rgba(52, 152, 219, 0.3);
+  border: 3px solid rgba(153, 102, 204, 0.3);
   border-radius: 50%;
-  border-top-color: #3498db;
+  border-top-color: #9966cc;
   animation: spin 1s ease-in-out infinite;
   margin: 20px auto;
 }
@@ -292,8 +276,8 @@ body {
 .wgea-resource {
   margin-top: 40px; 
   padding: 20px;
-  background-color: #e3f2fd; 
-  border-left: 4px solid #3498db;
+  background-color: #f3e9ff; 
+  border-left: 4px solid #9966cc;
   font-size: 15px;
   line-height: 1.6;
   color: #2c3e50;
@@ -303,14 +287,14 @@ body {
 }
 
 .wgea-link {
-  color: #3498db; 
+  color: #9966cc; 
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .wgea-link:hover {
-  color: #2980b9;
+  color: #9400d3;
   text-decoration: underline;
 }
 

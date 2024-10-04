@@ -72,7 +72,7 @@ body {
   font-weight: 600;
   border: none;
   border-radius: 8px;
-  background-color: #3498db;
+  background-color: #9966cc;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -85,7 +85,7 @@ body {
 }
 
 .cd-back-button:hover {
-  background-color: #2980b9;
+  background-color: #9400d3;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -93,9 +93,9 @@ body {
 .cd-loading-spinner {
   width: 60px;
   height: 60px;
-  border: 4px solid rgba(52, 152, 219, 0.3);
+  border: 4px solid rgba(153, 102, 204, 0.3);
   border-radius: 50%;
-  border-top-color: #3498db;
+  border-top-color: #9966cc;
   animation: cd-spin 1s ease-in-out infinite;
   margin: 2.5rem auto;
 }
@@ -125,7 +125,7 @@ body {
 }
 
 .tabs-trigger[data-state='active'] {
-  color: #4559a1;
+  color: #9966cc;
 }
 
 .tabs-content {
@@ -135,8 +135,8 @@ body {
 .cd-wgea-resource {
   margin-top: 2.5rem; 
   padding: 1.5rem;
-  background-color: #e3f2fd; 
-  border-left: 4px solid #3498db;
+  background-color: #f3e9ff; 
+  border-left: 4px solid #9966cc;
   font-size: 0.95rem;
   line-height: 1.6;
   color: #2c3e50;
@@ -146,14 +146,14 @@ body {
 }
 
 .cd-wgea-link {
-  color: #3498db; 
+  color: #9966cc; 
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .cd-wgea-link:hover {
-  color: #2980b9;
+  color: #9400d3;
   text-decoration: underline;
 }
 

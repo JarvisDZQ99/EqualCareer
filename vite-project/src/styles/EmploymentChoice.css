@@ -37,8 +37,8 @@
 }
 
 .choice-box.selected {
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  border-color: #9966cc;
+  box-shadow: 0 0 0 2px rgba(153, 102, 204, 0.2);
 }
 
 .choice-box h2 {
@@ -68,7 +68,7 @@
 
 .choice-box li svg {
   margin-right: 8px;
-  color: #4a90e2;
+  color: #9966cc;
 }
 
 .button-group {
@@ -99,12 +99,12 @@
 }
 
 .button.primary {
-  background-color: #4a90e2;
+  background-color: #9966cc;
   color: white;
 }
 
 .button.primary:hover {
-  background-color: #3a7bc8;
+  background-color: #9400d3;
   transform: translateY(-2px);
 }
 

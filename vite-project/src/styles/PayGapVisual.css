@@ -81,14 +81,14 @@ body {
 }
 
 .pay-gap-icon {
-  color: #3498db;
+  color: #9966cc;
   margin-right: 5px;
 }
 
 .pay-gap-value {
   font-size: 1.5em;
   font-weight: 700;
-  color: #3498db;
+  color: #9966cc;
 }
 
 .trend-info {
@@ -148,7 +148,7 @@ body {
 }
 
 .button.primary {
-  background-color: #3498db;
+  background-color: #9966cc;
   color: white;
 }
 
@@ -162,23 +162,7 @@ body {
 }
 
 .button.primary:hover {
-  background-color: #2980b9;
-}
-
-.user-info-form-info-box {
-  background-color: #e3f2fd;
-  border-left: 4px solid #3498db;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  font-size: 0.9em;
-  color: #2c3e50;
-}
-
-.user-info-form-info-icon {
-  font-weight: bold;
-  margin-right: 10px;
-  color: #3498db;
+  background-color: #9400d3;
 }
 
 .wgea-resource {
@@ -189,7 +173,7 @@ body {
 }
 
 .wgea-link {
-  color: #3498db;
+  color: #9966cc;
   text-decoration: none;
   font-weight: 600;
 }
@@ -210,13 +194,13 @@ body {
 .combined-summary-box .summary-title {
   font-size: 1.4em;
   color: #2c3e50;
-  border-bottom: 2px solid #3498db;
+  border-bottom: 2px solid #9966cc;
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
 
 .salary-comparison {
-  background-color: #e8f4fd;
+  background-color: #f3e9ff;
   border-radius: 8px;
   padding: 15px;
   margin-top: 20px;
@@ -233,7 +217,7 @@ body {
 .salary-difference {
   font-size: 1.2em;
   font-weight: 600;
-  color: #3498db;
+  color: #9966cc;
 }
 
 .salary-difference.positive {

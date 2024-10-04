@@ -19,18 +19,18 @@
 }
 
 .user-info-form-info-box {
-  background-color: #ebf8ff;
-  border: 1px solid #bee3f8;
+  background-color: #f3e9ff;
+  border: 1px solid #9966cc;
   border-radius: 6px;
   padding: 16px;
   margin-bottom: 24px;
   font-size: 14px;
   line-height: 1.5;
-  color: #2c5282;
+  color: #9966cc;
 }
 
 .user-info-form-info-icon {
-  color: #3182ce;
+  color: #9966cc;
   margin-right: 10px;
   font-size: 16px;
 }
@@ -49,7 +49,7 @@
   font-weight: 600;
   border-radius: 6px;
   border: none;
-  background: #3182ce;
+  background: #9966cc;
   color: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -62,7 +62,7 @@
 }
 
 .user-info-form-button:hover {
-  background: #2b6cb0;
+  background: #9400d3;
   transform: translateY(-2px);
 }
 
@@ -71,12 +71,12 @@
 }
 
 .react-select__control {
-  border-color: #e2e8f0;
+  border-color: #9966cc;
   box-shadow: none;
 }
 
 .react-select__control:hover {
-  border-color: #cbd5e0;
+  border-color: #9400d3;
 }
 
 .react-select__placeholder {
