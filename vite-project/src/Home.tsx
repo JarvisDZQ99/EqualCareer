@@ -13,7 +13,7 @@ const Home: React.FC = () => {
   return (
     <div className="homecontainer">
       <div className="background-container">
-        <Header className="home-header" />
+        <Header/>
         <div className="home-content">
           <p className="home-subtitle">Empowering Women in the Workplace with Data-Driven Career Insights</p>
           <button className="start-button" onClick={handleStartClick}>
