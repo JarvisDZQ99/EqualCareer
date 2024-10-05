@@ -48,7 +48,7 @@ const TechAssessment: React.FC<TechAssessmentProps> = ({
     try {
       const response = await fetch(`https://ve0zg43wv0.execute-api.ap-southeast-2.amazonaws.com/production/api/generalfunc6?industry=${encodeURIComponent(industry)}&occupation=${encodeURIComponent(occupation)}`);
       if (!response.ok) {
-        throw new Error('Failed to fetch questions');
+        throw new Error('Sorry, there is no tech assessment available for the current occupation.');
       }
       const data = await response.json();
       setQuestions(data);
