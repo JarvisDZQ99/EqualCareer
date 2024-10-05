@@ -154,9 +154,13 @@ const TaskBasedAssessment: React.FC<TaskBasedAssessmentProps> = ({
       );
     };
 
-  if (loading) {
-    return <div className="loading">Loading questions...</div>;
-  }
+if (loading) {
+    return (
+        <div className="loading-container">
+        <div className="loading-spinner"></div>
+        </div>
+    );
+    }
 
   if (error) {
     return <div className="error">{error}</div>;

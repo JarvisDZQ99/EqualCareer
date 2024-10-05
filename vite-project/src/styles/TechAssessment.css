@@ -5,13 +5,13 @@ body {
     line-height: 1.6;
   }
   
-  .task-based-assessment {
+  .tech-assessment {
     max-width: 800px;
     margin: 40px auto;
     padding: 20px;
   }
   
-  .task-based-assessment h1 {
+  .tech-assessment h1 {
     font-size: 1.6rem;
     font-weight: 500;
     color: #9966cc;
@@ -39,7 +39,7 @@ body {
     margin-bottom: 20px;
   }
   
-  .skills-statement {
+  .tech-statement {
     font-size: 1rem;
     color: #34495e;
     margin-bottom: 20px;
@@ -55,7 +55,7 @@ body {
     margin-bottom: 25px;
   }
   
-  .trending {
+  .emerging {
     display: inline-block;
     background-color: #84dd70;
     color: white;
@@ -139,35 +139,35 @@ body {
     margin-top: 15px;
   }
   
-  .cluster-analysis {
+  .tech-analysis {
     display: flex;
     justify-content: space-between;
     gap: 40px;
   }
   
-  .good-clusters, .improvement-clusters {
+  .proficient-tech, .improvement-tech {
     flex: 1;
     padding: 30px;
     border-radius: 8px;
     background-color: rgba(153, 102, 204, 0.1);
   }
   
-  .improvement-clusters {
+  .improvement-tech {
     background-color: rgba(231, 76, 60, 0.1);
   }
   
-  .cluster-analysis h3 {
+  .tech-analysis h3 {
     font-size: 1.2rem;
     color: #9966cc;
     margin-bottom: 20px;
   }
   
-  .cluster-analysis ul {
+  .tech-analysis ul {
     list-style-type: none;
     padding: 0;
   }
   
-  .cluster-analysis li {
+  .tech-analysis li {
     font-size: 1.1rem;
     color: #34495e;
     margin-bottom: 15px;
@@ -175,7 +175,7 @@ body {
     position: relative;
   }
   
-  .cluster-analysis li::before {
+  .tech-analysis li::before {
     content: '•';
     position: absolute;
     left: 0;
@@ -206,13 +206,13 @@ body {
       max-width: 90%;
     }
   
-    .cluster-analysis {
+    .tech-analysis {
       flex-direction: column;
     }
   }
   
   @media (max-width: 768px) {
-    .task-based-assessment {
+    .tech-assessment {
       padding: 10px;
     }
   
@@ -240,11 +240,11 @@ body {
       font-size: 2.5rem;
     }
   
-    .cluster-analysis h3 {
+    .tech-analysis h3 {
       font-size: 1.3rem;
     }
   
-    .cluster-analysis li {
+    .tech-analysis li {
       font-size: 1rem;
     }
   }
