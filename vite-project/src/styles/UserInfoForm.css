@@ -19,14 +19,12 @@
 }
 
 .user-info-form-info-box {
-  background-color: #f3e9ff;
-  border: 1px solid #9966cc;
-  border-radius: 6px;
-  padding: 16px;
-  margin-bottom: 24px;
+  background-color: #f0f0f0;
+  border-left: 4px solid #9966cc;
+  padding: 15px;
+  margin-bottom: 30px;
   font-size: 14px;
-  line-height: 1.5;
-  color: #9966cc;
+  color: #555;
 }
 
 .user-info-form-info-icon {
