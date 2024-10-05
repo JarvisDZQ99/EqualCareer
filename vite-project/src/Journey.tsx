@@ -9,6 +9,7 @@
 // import CompanyDetails from './steps/CompanyDetail';
 // import Header from './components/Header';
 // import Footer from './components/Footer';
+// import SkillAssessmentPage from './steps/SkillAssessmentChoice';
 // import './styles/Journey.css';
 
 // interface Company {
@@ -39,6 +40,9 @@
 //         break;
 //       case 'EmployedChoice':
 //         setCurrentStep(5);
+//         break;
+//       case 'SkillAssessment':
+//         setCurrentStep(7);
 //         break;
 //       case 'UserInfoForm':  
 //       case 'home':
@@ -86,6 +90,8 @@
 //         return 5; 
 //       } else if (prevStep === 3) {  
 //         return 5;
+//       } else if (prevStep === 7) {  // New case for SkillAssessmentPage
+//         return 1;
 //       }
 //       return Math.max(0, prevStep - 1); 
 //     });
@@ -104,6 +110,10 @@
 
 //   function handleBackFromCompanyDetails() {
 //     setCurrentStep(2);
+//   }
+
+//   function handleSkillAssessmentChoice() {
+//     setCurrentStep(1);
 //   }
 
 //   const steps: Array<ReactElement> = [
@@ -150,7 +160,13 @@
 //       />
 //     ) : (
 //       <div key="no-company-selected">No company selected</div>
-//     )
+//     ),
+//     <SkillAssessmentPage
+//       key="skill-assessment"
+//       onNext={handleSkillAssessmentChoice}
+//       onPrevious={handlePrevious}
+//       userData={{industry: userInfo.industry}}
+//     />
 //   ];
 
 //   return (
@@ -186,6 +202,7 @@ import CompanyDetails from './steps/CompanyDetail';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SkillAssessmentPage from './steps/SkillAssessmentChoice';
+import TaskBasedAssessment from './steps/TaskBasedAssessment';
 import './styles/Journey.css';
 
 interface Company {
@@ -204,6 +221,7 @@ const JourneyContent: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const { userInfo } = useUserInfo();
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
+  const [selectedOccupation, setSelectedOccupation] = useState<string>('');
 
   function handleUserInfoSubmit() {
     setCurrentStep(1);
@@ -266,7 +284,7 @@ const JourneyContent: React.FC = () => {
         return 5; 
       } else if (prevStep === 3) {  
         return 5;
-      } else if (prevStep === 7) {  // New case for SkillAssessmentPage
+      } else if (prevStep === 7) {  
         return 1;
       }
       return Math.max(0, prevStep - 1); 
@@ -288,8 +306,14 @@ const JourneyContent: React.FC = () => {
     setCurrentStep(2);
   }
 
-  function handleSkillAssessmentChoice() {
-    setCurrentStep(1);
+  function handleSkillAssessmentChoice(choice: 'Task' | 'Tech', occupation: string) {
+    setSelectedOccupation(occupation);
+    if (choice === 'Task') {
+      setCurrentStep(8); 
+    } else {
+      console.log('Tech assessment not implemented yet');
+      setCurrentStep(1);
+    }
   }
 
   const steps: Array<ReactElement> = [
@@ -342,6 +366,12 @@ const JourneyContent: React.FC = () => {
       onNext={handleSkillAssessmentChoice}
       onPrevious={handlePrevious}
       userData={{industry: userInfo.industry}}
+    />,
+    <TaskBasedAssessment
+      key="task-based-assessment"
+      industry={userInfo.industry}
+      occupation={selectedOccupation}
+      onPrevious={() => setCurrentStep(7)} 
     />
   ];
 
