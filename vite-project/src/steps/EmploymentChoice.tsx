@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Briefcase, TrendingUp, MapPin, Users } from 'lucide-react';
+import { Search, Briefcase, TrendingUp, MapPin, Users, BookOpen, Cpu } from 'lucide-react';
 import '../styles/EmploymentChoice.css';
 
 interface EmploymentChoiceProps {
@@ -27,6 +27,9 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, onPrevious 
         case 'Job-Seeking':
           onNext('JobSeekingResults');
           break;
+        case 'Skill Assessment':
+          onNext('SkillAssessment');
+          break;
         default:
           console.error('Invalid choice:', choice);
       }
@@ -38,7 +41,7 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, onPrevious 
       <h1 className="title">Choose Your Path</h1>
       <div className="user-info-form-info-box">
         <span className="user-info-form-info-icon">ℹ</span>
-        Explore your personlised gender equality insights 
+        Explore your personalized gender equality insights or assess your skills
       </div>
 
       <div className="choice-container">
@@ -66,6 +69,19 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, onPrevious 
             <li><TrendingUp size={16} /> Gender pay gap over time</li>
             <li><MapPin size={16} /> Pay gap in your state</li>
             <li><Users size={16} /> Labor force information</li>
+          </ul>
+        </div>
+
+        <div 
+          className={`choice-box ${choice === 'Skill Assessment' ? 'selected' : ''}`}
+          onClick={() => handleChoice('Skill Assessment')}
+        >
+          <BookOpen size={24} />
+          <h2>Skill Assessment</h2>
+          <p>Evaluate your skills and get personalized recommendations</p>
+          <ul>
+            <li><BookOpen size={16} /> Task: Job tasks and skill requirements</li>
+            <li><Cpu size={16} /> Tech: Technical tools for your profession</li>
           </ul>
         </div>
       </div>
