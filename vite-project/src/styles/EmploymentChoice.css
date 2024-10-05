@@ -32,10 +32,6 @@
   background-color: white;
 }
 
-.choice-box:hover {
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
 .choice-box.selected {
   border-color: #9966cc;
   box-shadow: 0 0 0 2px rgba(153, 102, 204, 0.2);
@@ -79,13 +75,12 @@
 }
 
 .button {
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: 500;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .button.secondary {
@@ -95,7 +90,6 @@
 
 .button.secondary:hover {
   background-color: #e0e0e0;
-  transform: translateY(-2px);
 }
 
 .button.primary {
@@ -105,7 +99,6 @@
 
 .button.primary:hover {
   background-color: #9400d3;
-  transform: translateY(-2px);
 }
 
 .button:disabled {

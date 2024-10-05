@@ -134,17 +134,16 @@ body {
 
 .button {
   padding: 12px 24px;
-  font-size: 1em;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .button.secondary {
   background-color: #ecf0f1;
-  color: #2c3e50;
+  color: #333;
 }
 
 .button.primary {
@@ -153,7 +152,6 @@ body {
 }
 
 .button:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
