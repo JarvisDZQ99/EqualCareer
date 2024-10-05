@@ -52,8 +52,12 @@ const TaskBasedAssessment: React.FC<TaskBasedAssessmentProps> = ({
     setError(null);
     try {
         const response = await fetch(`https://ve0zg43wv0.execute-api.ap-southeast-2.amazonaws.com/production/api/generalfunc5?industry=${encodeURIComponent(industry)}&occupation=${encodeURIComponent(occupation)}`);
+        if (response.status === 404) {
+            setError('Sorry, there is no tech assessment available for the current occupation.');
+            return;
+        }
         if (!response.ok) {
-        throw new Error('Failed to fetch questions');
+            throw new Error('Failed to fetch questions');
         }
         const data = await response.json();
         setQuestions(data);
@@ -64,7 +68,7 @@ const TaskBasedAssessment: React.FC<TaskBasedAssessmentProps> = ({
     } finally {
         setLoading(false);
     }
-    };
+  };
 
   const handleAnswer = (score: number) => {
     const newAnswers = [...userAnswers];
