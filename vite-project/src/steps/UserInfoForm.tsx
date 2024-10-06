@@ -25,14 +25,14 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
   }, [setUserInfo]);
 
   const australianStates: Option[] = [
-    { value: 'NSW', label: 'NSW' },
-    { value: 'VIC', label: 'VIC' },
-    { value: 'QLD', label: 'QLD' },
-    { value: 'SA', label: 'SA' },
-    { value: 'WA', label: 'WA' },
-    { value: 'TAS', label: 'TAS' },
-    { value: 'NT', label: 'NT' },
-    { value: 'ACT', label: 'ACT' }
+    { value: 'NSW', label: 'New South Wales' },
+    { value: 'VIC', label: 'Victoria' },
+    { value: 'QLD', label: 'Queensland' },
+    { value: 'SA', label: 'South Australia' },
+    { value: 'WA', label: 'Western Australia' },
+    { value: 'TAS', label: 'Tasmania' },
+    { value: 'NT', label: 'Northern Territory' },
+    { value: 'ACT', label: 'Australian Capital Territory' }
   ];
 
   const industryOptions: Option[] = [
