@@ -1,3 +1,4 @@
+/* Global styles should remain unchanged */
 * {
   margin: 0;
   padding: 0;
@@ -11,20 +12,21 @@ body, html {
   font-family: 'Montserrat', sans-serif;
 }
 
-.homecontainer {
+/* Home-specific styles */
+.home-container {
   position: relative;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-.parallax-wrapper {
+.home-parallax-wrapper {
   height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
   perspective: 1px;
 }
 
-.background-container {
+.home-background-container {
   position: absolute;
   top: 0;
   right: 0;
@@ -57,7 +59,7 @@ body, html {
   max-width: 800px;
 }
 
-.start-button {
+.home-start-button {
   padding: 10px 20px;
   font-size: 20px;
   font-weight: 500;
@@ -69,27 +71,27 @@ body, html {
   color: #ffffff;
 }
 
-.start-button:hover {
+.home-start-button:hover {
   background-color: #9400d3;
   transform: translateY(-2px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
-.content-section {
+.home-content-section {
   position: relative;
   background-color: #ffffff;
   padding: 80px 0;
   z-index: 1;
 }
 
-.mission-section, .features-section {
+.home-mission-section, .home-features-section {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
   padding: 60px 20px;
 }
 
-h2 {
+.home-section-title {
   font-size: 2.8rem;
   margin-bottom: 40px;
   color: #333;
@@ -97,7 +99,7 @@ h2 {
   display: inline-block;
 }
 
-h2::after {
+.home-section-title::after {
   content: '';
   position: absolute;
   bottom: -10px;
@@ -108,7 +110,7 @@ h2::after {
   background-color: #9966cc;
 }
 
-p {
+.home-section-text {
   font-size: 1.2rem;
   line-height: 1.8;
   color: #555;
@@ -116,14 +118,14 @@ p {
   margin: 0 auto;
 }
 
-.features-grid {
+.home-features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   margin-top: 60px;
 }
 
-.feature-item {
+.home-feature-item {
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -135,24 +137,24 @@ p {
   text-align: center;
 }
 
-.feature-item:hover {
+.home-feature-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-.feature-item h3 {
+.home-feature-title {
   font-size: 1.6rem;
   margin-bottom: 15px;
   color: #9966cc;
 }
 
-.feature-item p {
+.home-feature-description {
   font-size: 1.1rem;
   color: #666;
   line-height: 1.6;
 }
 
-.feature-icon {
+.home-feature-icon {
   font-size: 3rem;
   color: #9966cc;
   margin-bottom: 20px;
@@ -163,20 +165,20 @@ p {
     font-size: 1.4rem;
   }
 
-  .start-button {
+  .home-start-button {
     padding: 12px 24px;
     font-size: 1rem;
   }
 
-  h2 {
+  .home-section-title {
     font-size: 2.2rem;
   }
 
-  p {
+  .home-section-text {
     font-size: 1rem;
   }
 
-  .features-grid {
+  .home-features-grid {
     grid-template-columns: 1fr;
   }
 }

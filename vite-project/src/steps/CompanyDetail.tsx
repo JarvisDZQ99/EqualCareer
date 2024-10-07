@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from 'recharts';
 import * as Tabs from '@radix-ui/react-tabs';
+import { FaInfoCircle } from 'react-icons/fa';
 import '../styles/CompanyDetail.css';
 
 interface Company {
@@ -109,6 +110,13 @@ interface CompanyDetailProps {
   onBack: () => void;
 }
 
+const InfoTooltip: React.FC<{ content: string }> = ({ content }) => (
+  <div className="info-tooltip">
+    <FaInfoCircle />
+    <span className="tooltip-text">{content}</span>
+  </div>
+);
+
 const WorkforceComposition: React.FC<{ companyDetails: CompanyDetails }> = ({ companyDetails }) => {
   const managementData = [
     { position: 'CEOs', men: companyDetails.manager_CEOs_men || 0, women: companyDetails.manager_CEOs_women || 0 },
@@ -156,16 +164,21 @@ const WorkforceComposition: React.FC<{ companyDetails: CompanyDetails }> = ({ co
 
   return (
     <div className="workforce-composition">
-      <h2 className="cd-section-title">Workforce Composition</h2>
+      <h2 className="cd-section-title">
+        Workforce Composition
+        <InfoTooltip content="This chart shows the distribution of men and women across different job levels in the company." />
+      </h2>
       <Tabs.Root className="tabs-root" defaultValue="management">
         <Tabs.List className="tabs-list">
           <Tabs.Trigger className="tabs-trigger" value="management">Management</Tabs.Trigger>
           <Tabs.Trigger className="tabs-trigger" value="non-management">Non-Management</Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content className="tabs-content" value="management">
+          <p className="chart-description">This chart shows the gender distribution across different management levels.</p>
           {renderChart(managementData)}
         </Tabs.Content>
         <Tabs.Content className="tabs-content" value="non-management">
+          <p className="chart-description">This chart shows the gender distribution across different non-management roles.</p>
           {renderChart(nonManagementData)}
         </Tabs.Content>
       </Tabs.Root>
@@ -193,102 +206,102 @@ const WorkforceComposition: React.FC<{ companyDetails: CompanyDetails }> = ({ co
 const EmploymentMetrics: React.FC<{ companyDetails: CompanyDetails }> = ({ companyDetails }) => {
   const [selectedMetric, setSelectedMetric] = useState('ceased_paid_leave');
 
-  const calculateRatio = (men: number, women: number) => {
-    const total = men + women;
-    if (total === 0) return { men: 0, women: 0 };
-    return {
-      men: Math.round((men / total) * 100),
-      women: Math.round((women / total) * 100)
-    };
+  const metricData = {
+    ceased_paid_leave: [
+      { level: 'Middle Management', men: companyDetails.ceased_paid_leave_mid_mgmt_men ?? 0, women: companyDetails.ceased_paid_leave_mid_mgmt_women ?? 0 },
+      { level: 'Non-Management', men: companyDetails.ceased_paid_leave_non_mgmt_men ?? 0, women: companyDetails.ceased_paid_leave_non_mgmt_women ?? 0 },
+      { level: 'Top Management', men: companyDetails.ceased_paid_leave_top_mgmt_men ?? 0, women: companyDetails.ceased_paid_leave_top_mgmt_women ?? 0 },
+    ],
+    appointments: [
+      { level: 'Middle Management', men: (companyDetails.ext_appoint_mid_mgmt_men ?? 0) + (companyDetails.internal_appoint_mid_mgmt_men ?? 0), women: (companyDetails.ext_appoint_mid_mgmt_women ?? 0) + (companyDetails.internal_appoint_mid_mgmt_women ?? 0) },
+      { level: 'Non-Management', men: (companyDetails.ext_appoint_non_mgmt_men ?? 0) + (companyDetails.internal_appoint_non_mgmt_men ?? 0), women: (companyDetails.ext_appoint_non_mgmt_women ?? 0) + (companyDetails.internal_appoint_non_mgmt_women ?? 0) },
+      { level: 'Top Management', men: (companyDetails.ext_appoint_top_mgmt_men ?? 0) + (companyDetails.internal_appoint_top_mgmt_men ?? 0), women: (companyDetails.ext_appoint_top_mgmt_women ?? 0) + (companyDetails.internal_appoint_top_mgmt_women ?? 0) },
+    ],
+    carers: [
+      { level: 'Middle Management', men: (companyDetails.primary_carers_mid_mgmt_men ?? 0) + (companyDetails.sec_carers_mid_mgmt_men ?? 0), women: (companyDetails.primary_carers_mid_mgmt_women ?? 0) + (companyDetails.sec_carers_mid_mgmt_women ?? 0) },
+      { level: 'Non-Management', men: (companyDetails.primary_carers_non_mgmt_men ?? 0) + (companyDetails.sec_carers_non_mgmt_men ?? 0), women: (companyDetails.primary_carers_non_mgmt_women ?? 0) + (companyDetails.sec_carers_non_mgmt_women ?? 0) },
+      { level: 'Top Management', men: (companyDetails.primary_carers_top_mgmt_men ?? 0) + (companyDetails.sec_carers_top_mgmt_men ?? 0), women: (companyDetails.primary_carers_top_mgmt_women ?? 0) + (companyDetails.sec_carers_top_mgmt_women ?? 0) },
+    ],
+    promotions: [
+      { level: 'Middle Management', men: companyDetails.promotions_mid_mgmt_men ?? 0, women: companyDetails.promotions_mid_mgmt_women ?? 0 },
+      { level: 'Non-Management', men: companyDetails.promotions_non_mgmt_men ?? 0, women: companyDetails.promotions_non_mgmt_women ?? 0 },
+      { level: 'Top Management', men: companyDetails.promotions_top_mgmt_men ?? 0, women: companyDetails.promotions_top_mgmt_women ?? 0 },
+    ],
+    resignations: [
+      { level: 'Middle Management', men: companyDetails.resignations_mid_mgmt_men ?? 0, women: companyDetails.resignations_mid_mgmt_women ?? 0 },
+      { level: 'Non-Management', men: companyDetails.resignations_non_mgmt_men ?? 0, women: companyDetails.resignations_non_mgmt_women ?? 0 },
+      { level: 'Top Management', men: companyDetails.resignations_top_mgmt_men ?? 0, women: companyDetails.resignations_top_mgmt_women ?? 0 },
+    ],
   };
-  
-    const metricData = {
-      ceased_paid_leave: [
-        { level: 'Middle Management', ...calculateRatio(companyDetails.ceased_paid_leave_mid_mgmt_men ?? 0, companyDetails.ceased_paid_leave_mid_mgmt_women ?? 0) },
-        { level: 'Non-Management', ...calculateRatio(companyDetails.ceased_paid_leave_non_mgmt_men ?? 0, companyDetails.ceased_paid_leave_non_mgmt_women ?? 0) },
-        { level: 'Top Management', ...calculateRatio(companyDetails.ceased_paid_leave_top_mgmt_men ?? 0, companyDetails.ceased_paid_leave_top_mgmt_women ?? 0) },
-      ],
-      appointments: [
-        { level: 'Middle Management', ...calculateRatio(companyDetails.ext_appoint_mid_mgmt_men ?? 0, companyDetails.ext_appoint_mid_mgmt_women ?? 0), ...calculateRatio(companyDetails.internal_appoint_mid_mgmt_men ?? 0, companyDetails.internal_appoint_mid_mgmt_women ?? 0) },
-        { level: 'Non-Management', ...calculateRatio(companyDetails.ext_appoint_non_mgmt_men ?? 0, companyDetails.ext_appoint_non_mgmt_women ?? 0), ...calculateRatio(companyDetails.internal_appoint_non_mgmt_men ?? 0, companyDetails.internal_appoint_non_mgmt_women ?? 0) },
-        { level: 'Top Management', ...calculateRatio(companyDetails.ext_appoint_top_mgmt_men ?? 0, companyDetails.ext_appoint_top_mgmt_women ?? 0), ...calculateRatio(companyDetails.internal_appoint_top_mgmt_men ?? 0, companyDetails.internal_appoint_top_mgmt_women ?? 0) },
-      ],
-      carers: [
-        { level: 'Middle Management', ...calculateRatio(companyDetails.primary_carers_mid_mgmt_men ?? 0, companyDetails.primary_carers_mid_mgmt_women ?? 0), ...calculateRatio(companyDetails.sec_carers_mid_mgmt_men ?? 0, companyDetails.sec_carers_mid_mgmt_women ?? 0) },
-        { level: 'Non-Management', ...calculateRatio(companyDetails.primary_carers_non_mgmt_men ?? 0, companyDetails.primary_carers_non_mgmt_women ?? 0), ...calculateRatio(companyDetails.sec_carers_non_mgmt_men ?? 0, companyDetails.sec_carers_non_mgmt_women ?? 0) },
-        { level: 'Top Management', ...calculateRatio(companyDetails.primary_carers_top_mgmt_men ?? 0, companyDetails.primary_carers_top_mgmt_women ?? 0), ...calculateRatio(companyDetails.sec_carers_top_mgmt_men ?? 0, companyDetails.sec_carers_top_mgmt_women ?? 0) },
-      ],
-      promotions: [
-        { level: 'Middle Management', ...calculateRatio(companyDetails.promotions_mid_mgmt_men ?? 0, companyDetails.promotions_mid_mgmt_women ?? 0) },
-        { level: 'Non-Management', ...calculateRatio(companyDetails.promotions_non_mgmt_men ?? 0, companyDetails.promotions_non_mgmt_women ?? 0) },
-        { level: 'Top Management', ...calculateRatio(companyDetails.promotions_top_mgmt_men ?? 0, companyDetails.promotions_top_mgmt_women ?? 0) },
-      ],
-      resignations: [
-        { level: 'Middle Management', ...calculateRatio(companyDetails.resignations_mid_mgmt_men ?? 0, companyDetails.resignations_mid_mgmt_women ?? 0) },
-        { level: 'Non-Management', ...calculateRatio(companyDetails.resignations_non_mgmt_men ?? 0, companyDetails.resignations_non_mgmt_women ?? 0) },
-        { level: 'Top Management', ...calculateRatio(companyDetails.resignations_top_mgmt_men ?? 0, companyDetails.resignations_top_mgmt_women ?? 0) },
-      ],
-    };
-  
-    const renderChart = () => {
-      const data = metricData[selectedMetric as keyof typeof metricData];
-      return (
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart
-            data={data}
-            layout="vertical"
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" domain={[0, 100]} />
-            <YAxis 
-              dataKey="level" 
-              type="category" 
-              width={150}
-              tick={{ fontSize: 12 }}
-              tickLine={{ stroke: 'none' }}
-              axisLine={{ stroke: 'none' }}
-            />
-            <Tooltip 
-              formatter={(value: number) => `${value}%`}
-              contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
-              itemStyle={{ color: '#333' }}
-            />
-            <Legend 
-              verticalAlign="top" 
-              height={36}
-              iconType="circle"
-            />
-            <Bar dataKey="men" fill="#4a90e2" name="Men %" radius={[0, 4, 4, 0]} />
-            <Bar dataKey="women" fill="#e15f81" name="Women %" radius={[0, 4, 4, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      );
-    };
-  
-    const handleTabClick = useCallback((value: string) => (e: React.MouseEvent) => {
-      e.preventDefault();
-      setSelectedMetric(value);
-    }, []);
-  
+
+  const renderChart = () => {
+    const data = metricData[selectedMetric as keyof typeof metricData];
     return (
-      <div className="employment-metrics">
-        <h2 className="cd-section-title">Employment Metrics</h2>
-        <Tabs.Root className="tabs-root" value={selectedMetric}>
-          <Tabs.List className="tabs-list">
-            <Tabs.Trigger className="tabs-trigger" value="ceased_paid_leave" onClick={handleTabClick('ceased_paid_leave')}>Ceased Paid Leave</Tabs.Trigger>
-            <Tabs.Trigger className="tabs-trigger" value="appointments" onClick={handleTabClick('appointments')}>Appointments</Tabs.Trigger>
-            <Tabs.Trigger className="tabs-trigger" value="carers" onClick={handleTabClick('carers')}>Carers</Tabs.Trigger>
-            <Tabs.Trigger className="tabs-trigger" value="promotions" onClick={handleTabClick('promotions')}>Promotions</Tabs.Trigger>
-            <Tabs.Trigger className="tabs-trigger" value="resignations" onClick={handleTabClick('resignations')}>Resignations</Tabs.Trigger>
-          </Tabs.List>
-          <Tabs.Content className="tabs-content" value={selectedMetric}>
-            {renderChart()}
-          </Tabs.Content>
-        </Tabs.Root>
-      </div>
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart
+          data={data}
+          layout="vertical"
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis type="number" />
+          <YAxis 
+            dataKey="level" 
+            type="category" 
+            width={150}
+            tick={{ fontSize: 12 }}
+            tickLine={{ stroke: 'none' }}
+            axisLine={{ stroke: 'none' }}
+          />
+          <Tooltip 
+            contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
+            itemStyle={{ color: '#333' }}
+          />
+          <Legend 
+            verticalAlign="top" 
+            height={36}
+            iconType="circle"
+          />
+          <Bar dataKey="men" fill="#4a90e2" name="Men" radius={[0, 4, 4, 0]} />
+          <Bar dataKey="women" fill="#e15f81" name="Women" radius={[0, 4, 4, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
     );
   };
+
+  const handleTabClick = useCallback((value: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setSelectedMetric(value);
+  }, []);
+
+  return (
+    <div className="employment-metrics">
+      <h2 className="cd-section-title">
+        Employment Metrics
+        <InfoTooltip content="These charts show various employment metrics broken down by gender and management level." />
+      </h2>
+      <Tabs.Root className="tabs-root" value={selectedMetric}>
+        <Tabs.List className="tabs-list">
+          <Tabs.Trigger className="tabs-trigger" value="ceased_paid_leave" onClick={handleTabClick('ceased_paid_leave')}>Ceased Paid Leave</Tabs.Trigger>
+          <Tabs.Trigger className="tabs-trigger" value="appointments" onClick={handleTabClick('appointments')}>Appointments</Tabs.Trigger>
+          <Tabs.Trigger className="tabs-trigger" value="carers" onClick={handleTabClick('carers')}>Carers</Tabs.Trigger>
+          <Tabs.Trigger className="tabs-trigger" value="promotions" onClick={handleTabClick('promotions')}>Promotions</Tabs.Trigger>
+          <Tabs.Trigger className="tabs-trigger" value="resignations" onClick={handleTabClick('resignations')}>Resignations</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content className="tabs-content" value={selectedMetric}>
+          <p className="chart-description">
+            {selectedMetric === 'ceased_paid_leave' && "This chart shows the number of employees who have ceased paid leave, by gender and management level."}
+            {selectedMetric === 'appointments' && "This chart shows the number of new appointments (both internal and external), by gender and management level."}
+            {selectedMetric === 'carers' && "This chart shows the number of employees taking carer's leave, by gender and management level."}
+            {selectedMetric === 'promotions' && "This chart shows the number of promotions, by gender and management level."}
+            {selectedMetric === 'resignations' && "This chart shows the number of resignations, by gender and management level."}
+          </p>
+          {renderChart()}
+        </Tabs.Content>
+      </Tabs.Root>
+    </div>
+  );
+};
 
 const CompanyDetail: React.FC<CompanyDetailProps> = ({ company, onBack }) => {
   const [companyDetails, setCompanyDetails] = useState<CompanyDetails | null>(null);
@@ -353,5 +366,6 @@ const CompanyDetail: React.FC<CompanyDetailProps> = ({ company, onBack }) => {
     </div>
   );
 };
+
 
 export default CompanyDetail;
