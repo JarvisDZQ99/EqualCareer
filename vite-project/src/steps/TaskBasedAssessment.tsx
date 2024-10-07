@@ -30,19 +30,18 @@ interface ClusterScore {
 }
 
 const TaskBasedAssessment: React.FC<TaskBasedAssessmentProps> = ({ 
-    industry, 
-    occupation, 
-    onPrevious,
-    onAssessmentComplete 
-  }) => {
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<number[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [showResults, setShowResults] = useState(false);
-  const [clusterScores, setClusterScores] = useState<ClusterScore>({});
-
+  industry, 
+  occupation, 
+  onPrevious,
+  onAssessmentComplete 
+}) => {
+const [questions, setQuestions] = useState<Question[]>([]);
+const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+const [userAnswers, setUserAnswers] = useState<number[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+const [showResults, setShowResults] = useState(false);
+const [clusterScores, setClusterScores] = useState<ClusterScore>({});
   useEffect(() => {
     fetchQuestions();
   }, [industry, occupation]);
@@ -154,13 +153,33 @@ const TaskBasedAssessment: React.FC<TaskBasedAssessmentProps> = ({
       );
     };
 
-if (loading) {
-    return (
-        <div className="loading-container">
-        <div className="loading-spinner"></div>
-        </div>
-    );
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    } else {
+      onPrevious();
     }
+  };
+
+  const getRatingLabel = (score: number) => {
+    switch(score) {
+      case 1: return "Not at all confident";
+      case 2: return "Slightly confident";
+      case 3: return "Moderately confident";
+      case 4: return "Very confident";
+      case 5: return "Extremely confident";
+      default: return "";
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading assessment questions...</p>
+      </div>
+    );
+  }
 
   if (error) {
     return <div className="error">{error}</div>;
@@ -175,7 +194,7 @@ if (loading) {
           </div>
         </div>
         <div className="task-based-assessment">
-          <button className="previous-button" onClick={onPrevious}>Back to Skill Assessment</button>
+          <button className="task-based-assessment-button secondary" onClick={onPrevious}>Back to Skill Assessment</button>
         </div>
       </>
     );
@@ -186,23 +205,38 @@ if (loading) {
   return (
     <div className="task-based-assessment">
       <h1>Task-based Assessment for {occupation} in {industry}</h1>
+      <div className="progress-bar">
+        <div className="progress" style={{width: `${(currentQuestionIndex + 1) / questions.length * 100}%`}}></div>
+      </div>
       <div className="question-card">
         <h2>{currentQuestion.specialist_task}</h2>
-        {/* <p className="skills-statement">{currentQuestion.skills_statement}</p> */}
         <p className="question">{currentQuestion.question}</p>
         {currentQuestion.emerging_trending_flag && (
           <span className="trending">Trending Task</span>
         )}
         <div className="answer-options">
           {[1, 2, 3, 4, 5].map((score) => (
-            <button key={score} onClick={() => handleAnswer(score)}>
+            <button 
+              key={score} 
+              onClick={() => handleAnswer(score)}
+              className={userAnswers[currentQuestionIndex] === score ? 'selected' : ''}
+            >
               {score}
+              <span className="rating-label">{getRatingLabel(score)}</span>
             </button>
           ))}
         </div>
         <div className="question-progress">
           Question {currentQuestionIndex + 1} of {questions.length}
         </div>
+      </div>
+      <div className="task-based-assessment-button-group">
+        <button 
+          className="task-based-assessment-button secondary"
+          onClick={handlePrevious}
+        >
+          Previous
+        </button>
       </div>
     </div>
   );

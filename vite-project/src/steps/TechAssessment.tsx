@@ -139,11 +139,31 @@ const TechAssessment: React.FC<TechAssessmentProps> = ({
     );
   };
 
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    } else {
+      onPrevious();
+    }
+  };
+
+  const getRatingLabel = (score: number) => {
+    switch(score) {
+      case 1: return "Not familiar";
+      case 2: return "Beginner";
+      case 3: return "Intermediate";
+      case 4: return "Advanced";
+      case 5: return "Expert";
+      default: return "";
+    }
+  };
+
   if (loading) {
     return (
-        <div className="loading-container">
+      <div className="loading-container">
         <div className="loading-spinner"></div>
-        </div>
+        <p>Loading assessment questions...</p>
+      </div>
     );
   }   
 
@@ -160,7 +180,7 @@ const TechAssessment: React.FC<TechAssessmentProps> = ({
           </div>
         </div>
         <div className="tech-assessment">
-          <button className="previous-button" onClick={onPrevious}>Back to Skill Assessment</button>
+          <button className="tech-assessment-button secondary" onClick={onPrevious}>Back to Skill Assessment</button>
         </div>
       </>
     );
@@ -171,6 +191,9 @@ const TechAssessment: React.FC<TechAssessmentProps> = ({
   return (
     <div className="tech-assessment">
       <h1>Tech Assessment for {occupation} in {industry}</h1>
+      <div className="progress-bar">
+        <div className="progress" style={{width: `${(currentQuestionIndex + 1) / questions.length * 100}%`}}></div>
+      </div>
       <div className="question-card">
         <h2>{currentQuestion.technology_tool}</h2>
         <p className="question">{currentQuestion.question}</p>
@@ -179,14 +202,27 @@ const TechAssessment: React.FC<TechAssessmentProps> = ({
         )}
         <div className="answer-options">
           {[1, 2, 3, 4, 5].map((score) => (
-            <button key={score} onClick={() => handleAnswer(score)}>
+            <button 
+              key={score} 
+              onClick={() => handleAnswer(score)}
+              className={userAnswers[currentQuestionIndex] === score ? 'selected' : ''}
+            >
               {score}
+              <span className="rating-label">{getRatingLabel(score)}</span>
             </button>
           ))}
         </div>
         <div className="question-progress">
           Question {currentQuestionIndex + 1} of {questions.length}
         </div>
+      </div>
+      <div className="tech-assessment-button-group">
+        <button 
+          className="tech-assessment-button secondary"
+          onClick={handlePrevious}
+        >
+          Previous
+        </button>
       </div>
     </div>
   );
