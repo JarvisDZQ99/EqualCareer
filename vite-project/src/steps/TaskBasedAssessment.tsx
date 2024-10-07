@@ -182,7 +182,14 @@ const [clusterScores, setClusterScores] = useState<ClusterScore>({});
   }
 
   if (error) {
-    return <div className="error">{error}</div>;
+    return (
+      <div className="error-container">
+        <div className="error">{error}</div>
+        <button className="tech-assessment-button secondary" onClick={onPrevious}>
+          Previous
+        </button>
+      </div>
+    );
   }
 
   if (showResults) {
