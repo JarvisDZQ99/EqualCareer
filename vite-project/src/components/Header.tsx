@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/Header.css';
-import logoImage from '/logo.png';
+import logoImage from '/logo.png'; 
 
 interface HeaderProps {
   className?: string;
@@ -9,14 +9,32 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    document.addEventListener('scroll', handleScroll);
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrolled]);
 
   return (
-    <header className={`header ${className}`}>
+    <header className={`header ${className} ${scrolled ? 'scrolled' : ''}`}>
       <Link to="/" className="logo">
         <img src={logoImage} alt="Equal Career Logo" className="logo-image" />
-        <h1>Equal Career</h1>
+        <div className="logo-text">
+          <span className="logo-equal">Equal</span>
+          <span className="logo-career">Career</span>
+        </div>
       </Link>
-      <nav>
+      <nav className="nav">
         <Link
           to="/"
           className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
