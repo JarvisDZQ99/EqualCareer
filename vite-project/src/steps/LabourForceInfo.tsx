@@ -139,12 +139,6 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({
         >
           Previous Step
         </button>
-        <button
-          className="labourbutton labourbutton-primary"
-          onClick={() => onLabourForceChoice('payGap')}
-        >
-          Show Pay Gap Analysis
-        </button>
       </div>
       <p className="wgea-resource">
         For resources and more information on gender equality in the workplace, visit the   

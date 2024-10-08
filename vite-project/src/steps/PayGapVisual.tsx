@@ -34,7 +34,7 @@ interface CombinedSummaryData {
   regionMedianSalary: number;
 }
 
-const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region, onPrevious, onNext }) => {
+const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region, onPrevious }) => {
   const [data, setData] = useState<{ industry: PayGapData | null; region: PayGapData | null }>({ industry: null, region: null });
   const [loading, setLoading] = useState<{ industry: boolean; region: boolean }>({ industry: false, region: false });
   const [error, setError] = useState<{ industry: string | null; region: string | null }>({ industry: null, region: null });
@@ -342,7 +342,6 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region, onPreviou
       )}
       <div className="button-container">
         <button className="button secondary" onClick={onPrevious}>Previous Step</button>
-        <button className="button primary" onClick={() => onNext('show-labour-force')}>Show Labour Force Info</button>
       </div>
       <p className="wgea-resource">
         For resources and more information on gender equality in the workplace, visit the  
