@@ -28,7 +28,7 @@ const EmployedChoice: React.FC<EmployedChoiceProps> = ({ onNext, onPrevious }) =
     <div className="container">
       <h1 className="title">Explore Your Career Insights</h1>
       <div className="user-info-form-info-box">
-        <span className="user-info-form-info-icon">ℹ</span>
+        <span className="user-info-form-info-icon"></span>
         Discover personalized gender equality insights for your industry and region
       </div>
 
@@ -62,7 +62,7 @@ const EmployedChoice: React.FC<EmployedChoiceProps> = ({ onNext, onPrevious }) =
 
       <div className="button-group">
         <button className="button secondary" onClick={onPrevious}>
-          Previous
+          Back to Selection
         </button>
         <button 
           className="button primary"

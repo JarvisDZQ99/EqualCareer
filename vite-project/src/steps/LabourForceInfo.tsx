@@ -137,7 +137,7 @@ const LabourForceInfo: React.FC<LabourForceInfoProps> = ({
           className="labourbutton labourbutton-secondary"
           onClick={() => onLabourForceChoice('previous')}
         >
-          Previous
+          Previous Step
         </button>
         <button
           className="labourbutton labourbutton-primary"

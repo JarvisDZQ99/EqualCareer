@@ -73,9 +73,9 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ onNext }) => {
 
   return (
     <div className="user-info-form-container">
-      <h2 className="user-info-form-heading">Personalize Your Career Journey</h2>
+      <h2 className="user-info-form-heading">Personalise Your Career Journey</h2>
       <div className="user-info-form-info-box">
-        <span className="user-info-form-info-icon">ℹ</span>
+        <span className="user-info-form-info-icon"></span>
         Your responses help us tailor our recommendations and insights to your specific situation. We take your privacy seriously and do not share your personal information.
       </div>
       <label className="user-info-form-label">

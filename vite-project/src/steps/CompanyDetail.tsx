@@ -358,7 +358,7 @@ const CompanyDetail: React.FC<CompanyDetailProps> = ({ company, onBack }) => {
       <div className="cd-section">
         <EmploymentMetrics companyDetails={companyDetails} />
       </div>
-      <button onClick={onBack} className="cd-back-button">Previous</button>
+      <button onClick={onBack} className="cd-back-button">Back to Company List</button>
       <p className="cd-wgea-resource">
         For more information on gender equality in the workplace, visit the 
         <a href="https://www.wgea.gov.au" target="_blank" rel="noopener noreferrer" className="cd-wgea-link"> Workplace Gender Equality Agency (WGEA)</a>.

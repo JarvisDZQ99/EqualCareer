@@ -40,7 +40,6 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, onPrevious 
     <div className="container">
       <h1 className="title">Choose Your Path</h1>
       <div className="user-info-form-info-box">
-        <span className="user-info-form-info-icon">ℹ</span>
         Explore your personalized gender equality insights or assess your skills
       </div>
 
@@ -88,7 +87,7 @@ const EmploymentChoice: React.FC<EmploymentChoiceProps> = ({ onNext, onPrevious 
 
       <div className="button-group">
         <button className="button secondary" onClick={onPrevious}>
-          Previous
+          Back to Info Form
         </button>
         <button 
           className="button primary"

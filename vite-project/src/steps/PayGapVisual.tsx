@@ -341,7 +341,7 @@ const PayGapVisual: React.FC<PayGapVisualProps> = ({ industry, region, onPreviou
         </>
       )}
       <div className="button-container">
-        <button className="button secondary" onClick={onPrevious}>Previous</button>
+        <button className="button secondary" onClick={onPrevious}>Previous Step</button>
         <button className="button primary" onClick={() => onNext('show-labour-force')}>Show Labour Force Info</button>
       </div>
       <p className="wgea-resource">

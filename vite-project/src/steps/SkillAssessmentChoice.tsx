@@ -128,7 +128,7 @@ const SkillAssessmentPage: React.FC<SkillAssessmentPageProps> = ({ onNext, onPre
           className="skill-assessment-button secondary"
           onClick={onPrevious}
         >
-          Previous
+          Previous Step
         </button>
         <button 
           className={`skill-assessment-button primary ${(!selectedChoice || !selectedOccupation) ? 'disabled' : ''}`}

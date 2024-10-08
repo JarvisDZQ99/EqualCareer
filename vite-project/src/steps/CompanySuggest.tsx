@@ -263,7 +263,7 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
 
       <div className="previous-button-container">
         <button onClick={onPrevious} className="previous-button">
-          Previous
+          Back to Selection
         </button>
       </div>
       <p className="wgea-resource">
