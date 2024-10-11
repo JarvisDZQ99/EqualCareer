@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/Header.css';
-import logoImage from '/logo.png'; 
 
 interface HeaderProps {
   className?: string;
@@ -28,7 +27,6 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   return (
     <header className={`header ${className} ${scrolled ? 'scrolled' : ''}`}>
       <Link to="/" className="logo">
-        <img src={logoImage} alt="Equal Career Logo" className="logo-image" />
         <div className="logo-text">
           <span className="logo-equal">Equal</span>
           <span className="logo-career">Career</span>

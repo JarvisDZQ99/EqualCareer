@@ -28,24 +28,19 @@
   transform: translateY(-2px);
 }
 
-.logo-image {
-  height: 60px; 
-  margin-right: 10px;
-  transition: opacity 0.3s ease;
-}
-
 .logo-text {
   display: flex;
-  flex-direction: column;
+  align-items: baseline; 
 }
 
 .logo-equal {
-  font-size: 1.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: #333;
   letter-spacing: -1px;
   line-height: 1;
   position: relative;
+  margin-right: 5px;
 }
 
 .logo-equal::after {
@@ -65,7 +60,7 @@
 }
 
 .logo-career {
-  font-size: 1.2rem;
+  font-size: 2.2rem;
   font-weight: 300;
   color: #9400D3;
   letter-spacing: 1px;
