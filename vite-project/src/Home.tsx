@@ -67,9 +67,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
+      <Header />
       <div className="home-parallax-wrapper">
         <div className="home-background-container" ref={parallaxRef}>
-          <Header />
           <div className="home-content">
             <p className="home-subtitle">Empowering Women in the Workplace with Comprehensive Career Support</p>
             <button className="home-start-button" onClick={handleStartClick}>

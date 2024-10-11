@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ArrowUp, ArrowDown } from 'lucide-react';
+import { ArrowUp, ArrowDown, ChevronDown } from 'lucide-react';
 import StarRating from '../components/StarRating';
 import '../styles/CompanySuggest.css';
 
@@ -143,22 +143,45 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
     onSelectCompany(company);
   };
 
-  const sortedCompanies = sortCompanies(filteredCompanies, sortCriterion, sortOrder);
-  const totalPages = Math.ceil(sortedCompanies.length / companiesPerPage);
-  const indexOfLastCompany = currentPage * companiesPerPage;
-  const indexOfFirstCompany = indexOfLastCompany - companiesPerPage;
-  const currentCompanies = sortedCompanies.slice(indexOfFirstCompany, indexOfLastCompany);
+  const ScoreOptionsDropdown: React.FC = () => {
+    const [isOpen, setIsOpen] = useState(false);
 
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    return (
+      <div className="score-options-dropdown">
+        <button onClick={() => setIsOpen(!isOpen)} className="dropdown-toggle">
+          Score Options <ChevronDown size={16} />
+        </button>
+        {isOpen && (
+          <div className="dropdown-menu">
+            {Object.entries(scoreOptions).map(([option, checked]) => (
+              <label key={option} className="score-option">
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => handleScoreOptionChange(option)}
+                />
+                {option}
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
-  const SortingSection: React.FC = () => (
-    <div className="sorting-container">
-      <label htmlFor="sort-select" className="label">Sort companies by: </label>
+  const FilterSortSection: React.FC = () => (
+    <div className="filter-sort-section">
+      <input
+        type="text"
+        placeholder="Filter by company name"
+        value={filterText}
+        onChange={(e) => setFilterText(e.target.value)}
+        className="filter-input"
+      />
       <select
-        id="sort-select"
         value={sortCriterion}
         onChange={(e) => handleSort(e.target.value as keyof Company)}
-        className="select"
+        className="sort-select"
       >
         <option value="primary_abn_score">Total Score</option>
         <option value="Action on gender equality">Gender Equality Action Score</option>
@@ -171,25 +194,11 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
         className="sort-order-button"
       >
         {sortOrder === 'asc' 
-          ? <><ArrowUp size={18} /> Ascending</> 
-          : <><ArrowDown size={18} /> Descending</>
+          ? <ArrowUp size={18} /> 
+          : <ArrowDown size={18} />
         }
       </button>
-    </div>
-  );
-
-  const ScoreOptions: React.FC = () => (
-    <div className="score-options">
-      {Object.entries(scoreOptions).map(([option, checked]) => (
-        <label key={option} className="score-option">
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={() => handleScoreOptionChange(option)}
-          />
-          {option}
-        </label>
-      ))}
+      <ScoreOptionsDropdown />
     </div>
   );
 
@@ -201,6 +210,14 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
       </div>
     )
   );
+
+  const sortedCompanies = sortCompanies(filteredCompanies, sortCriterion, sortOrder);
+  const totalPages = Math.ceil(sortedCompanies.length / companiesPerPage);
+  const indexOfLastCompany = currentPage * companiesPerPage;
+  const indexOfFirstCompany = indexOfLastCompany - companiesPerPage;
+  const currentCompanies = sortedCompanies.slice(indexOfFirstCompany, indexOfLastCompany);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   if (loading) {
     return <div className="loading-spinner"></div>;
@@ -214,20 +231,10 @@ const JobSeekingResults: React.FC<JobSeekingResultsProps> = ({ region, industry,
     <div className="container">
       <h2 className="title">Recommended Companies - {industry} in {region}</h2>
       <div className="user-info-form-info-box">
-        <span className="user-info-form-info-icon">ℹ</span>
+        <span className="user-info-form-info-icon"></span>
         Below are the recommended companies based on your selected region and industry. You can sort and filter the companies using the options below.
       </div>
-      <div className="filter-container">
-        <input
-          type="text"
-          placeholder="Filter by company name"
-          value={filterText}
-          onChange={(e) => setFilterText(e.target.value)}
-          className="filter-input"
-        />
-      </div>
-      <SortingSection />
-      <ScoreOptions />
+      <FilterSortSection />
       <div className="card-container">
         {currentCompanies.length > 0 ? (
           currentCompanies.map((company, index) => (
